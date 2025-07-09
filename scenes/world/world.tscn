@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://yl0k3oh1qpr4"]
+
+[ext_resource type="Texture2D" uid="uid://d3mk4qm4p2k0x" path="res://assets/sprites/backgrounds/pitch-background.png" id="1_1fp7r"]
+[ext_resource type="Texture2D" uid="uid://bissasix8j1km" path="res://assets/sprites/backgrounds/pitch-pattern.png" id="2_6m72w"]
+[ext_resource type="Texture2D" uid="uid://c3bq2x204sll6" path="res://assets/sprites/backgrounds/pitch-lines.png" id="3_v5dby"]
+[ext_resource type="PackedScene" uid="uid://cj8rvcvb2ib3n" path="res://scenes/player/player.tscn" id="4_6m72w"]
+
+[node name="World" type="Node2D"]
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Grass" type="Sprite2D" parent="BG"]
+modulate = Color(0.517647, 0.803922, 0.164706, 1)
+texture = ExtResource("1_1fp7r")
+centered = false
+
+[node name="Patter" type="Sprite2D" parent="BG"]
+modulate = Color(0.286275, 0.545098, 0, 1)
+texture = ExtResource("2_6m72w")
+centered = false
+
+[node name="Lines" type="Sprite2D" parent="BG"]
+modulate = Color(0.941176, 0.941176, 0.941176, 1)
+texture = ExtResource("3_v5dby")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("4_6m72w")]
+position = Vector2(186, 110)
