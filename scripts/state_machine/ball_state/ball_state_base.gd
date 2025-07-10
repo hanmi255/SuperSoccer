@@ -1,6 +1,8 @@
 class_name BallStateBase
 extends Node
 
+const GRAVITY := 10.0
+
 signal state_transition_requested(new_state: Ball.State, _state_data: BallStateData)
 
 var animation_player: AnimationPlayer = null
@@ -22,3 +24,31 @@ func setup(context_ball: Ball, context_ball_sprite: Sprite2D, context_carrier: P
 
 func transition_to_state(new_state: Ball.State, _state_data: BallStateData = BallStateData.new()) -> void:
 	state_transition_requested.emit(new_state, _state_data)
+
+
+func set_ball_animation_from_velocity() -> void:
+	if ball.velocity.x > 0:
+		animation_player.play("roll")
+		animation_player.advance(0)
+	elif ball.velocity.x < 0:
+		animation_player.play_backwards("roll")
+		animation_player.advance(0)
+	else:
+		animation_player.play("idle")
+
+
+func apply_gravity(delta: float, bounciness: float = 0.0) -> void:
+	# 球在空中或有向上的速度时才应用重力
+	if ball.height <= 0 and ball.height_velocity <= 0:
+		return
+
+	# 应用重力
+	ball.height_velocity -= GRAVITY * delta
+	ball.height += ball.height_velocity
+
+	# 处理落地反弹
+	if ball.height < 0:
+		ball.height = 0
+		if bounciness > 0 and ball.height_velocity < 0:
+			ball.height_velocity = - ball.height_velocity * bounciness
+			ball.velocity *= bounciness
