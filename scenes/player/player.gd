@@ -10,8 +10,8 @@ enum State {MOVING, TACKLING, RECOVERING}
 @onready var skin: Sprite2D = $Skin
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var heading := Vector2.RIGHT
 var current_state: PlayerStateBase = null
+var heading := Vector2.RIGHT
 var state_factory := PlayerStateFactory.new()
 
 
