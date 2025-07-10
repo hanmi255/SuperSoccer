@@ -3,6 +3,7 @@ extends AnimatableBody2D
 
 enum State {CARRIED, FREEFORM, SHOOT}
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player_detection_area: Area2D = $PlayerDetectionArea
 
 var carrier: Player = null
@@ -21,7 +22,7 @@ func switch_state(state: State) -> void:
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, carrier, player_detection_area)
+	current_state.setup(self, carrier, animation_player, player_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "BallStateMachine: " + str(state)
 
