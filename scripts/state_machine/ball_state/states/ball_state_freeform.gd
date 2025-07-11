@@ -1,8 +1,6 @@
 class_name BallStateFreeform
 extends BallStateBase
 
-const BOUNCINESS := 0.8
-
 
 func _enter_tree() -> void:
 	player_detection_area.body_entered.connect(_on_player_entered.bind())
@@ -14,8 +12,9 @@ func _process(delta: float) -> void:
 	var friction := ball.friction_air if ball.height > 0 else ball.friction_ground
 
 	ball.velocity = ball.velocity.move_toward(Vector2.ZERO, friction * delta)
-	apply_gravity(delta, BOUNCINESS)
-	ball.move_and_collide(ball.velocity * delta)
+
+	apply_gravity(delta, ball.BOUNCINESS)
+	move_and_bounce(delta)
 
 
 func _on_player_entered(body: Player) -> void:

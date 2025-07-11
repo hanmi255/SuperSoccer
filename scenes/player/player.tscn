@@ -157,8 +157,10 @@ radius = 4.0
 height = 18.0
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_yewv4")
+power = 150.0
 
 [node name="Skin" type="Sprite2D" parent="."]
 y_sort_enabled = true
