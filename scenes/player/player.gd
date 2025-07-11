@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING}
 
 @export var ball: Ball = null
 @export var control_scheme: ControlScheme = ControlScheme.P1
@@ -11,6 +11,7 @@ enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING}
 
 @onready var skin: Sprite2D = $Skin
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 
 var current_state: PlayerStateBase = null
 var heading := Vector2.RIGHT
@@ -32,7 +33,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, ball, state_data, animation_player)
+	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
