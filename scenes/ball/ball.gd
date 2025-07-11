@@ -3,9 +3,6 @@ extends AnimatableBody2D
 
 enum State {CARRIED, FREEFORM, SHOOT}
 
-const FRICTION_AIR := 35.0
-const FRICTION_GROUND := 250.0
-
 @export var friction_air: float
 @export var friction_ground: float
 
