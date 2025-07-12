@@ -2,13 +2,15 @@ class_name Player
 extends CharacterBody2D
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
 	ControlScheme.P1: preload("res://assets/sprites/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/sprites/props/2p.png"),
 }
+
+const GRAVITY := 8.0
 
 @export var ball: Ball = null
 @export var control_scheme: ControlScheme = ControlScheme.P1
@@ -19,19 +21,23 @@ const CONTROL_SCHEME_SPRITE_MAP := {
 @onready var control_sprite: Sprite2D = %ControlSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
+@onready var ball_detection_area: Area2D = $BallDetectionArea
 
 var current_state: PlayerStateBase = null
 var heading := Vector2.RIGHT
+var height := 0.0
 var state_factory := PlayerStateFactory.new()
+var v_velocity := 0.0
 
 
 func _ready() -> void:
 	_set_control_scheme_sprite()
 	switch_state(Player.State.MOVING)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	_flip_skin()
 	_set_control_scheme_sprite_visibility()
+	_apply_gravity(delta)
 	move_and_slide()
 
 func switch_state(state: Player.State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
@@ -40,7 +46,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area)
+	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, ball_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
@@ -66,6 +72,15 @@ func _flip_skin() -> void:
 
 func _set_control_scheme_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_SPRITE_MAP[control_scheme]
+
+
+func _apply_gravity(delta: float) -> void:
+	if height > 0:
+		v_velocity -= GRAVITY * delta
+		height += v_velocity
+		height = max(0, height)
+
+	skin.position = Vector2.UP * height
 
 
 func _set_control_scheme_sprite_visibility() -> void:

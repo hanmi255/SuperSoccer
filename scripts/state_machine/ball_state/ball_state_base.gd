@@ -39,18 +39,18 @@ func set_ball_animation_from_velocity() -> void:
 
 func apply_gravity(delta: float, bounciness: float = 0.0) -> void:
 	# 球在空中或有向上的速度时才应用重力
-	if ball.height <= 0 and ball.height_velocity <= 0:
+	if ball.height <= 0 and ball.v_velocity <= 0:
 		return
 
 	# 应用重力
-	ball.height_velocity -= GRAVITY * delta
-	ball.height += ball.height_velocity
+	ball.v_velocity -= GRAVITY * delta
+	ball.height += ball.v_velocity
 
 	# 处理落地反弹
 	if ball.height < 0:
 		ball.height = 0
-		if bounciness > 0 and ball.height_velocity < 0:
-			ball.height_velocity = - ball.height_velocity * bounciness
+		if bounciness > 0 and ball.v_velocity < 0:
+			ball.v_velocity = - ball.v_velocity * bounciness
 			ball.velocity *= bounciness
 
 
@@ -59,3 +59,7 @@ func move_and_bounce(delta: float) -> void:
 	if collision != null:
 		ball.velocity = ball.velocity.bounce(collision.get_normal()) * ball.BOUNCINESS
 		ball.switch_state(Ball.State.FREEFORM)
+
+
+func can_air_interact() -> bool:
+	return false

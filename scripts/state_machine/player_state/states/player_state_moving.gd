@@ -19,11 +19,16 @@ func handle_player_movement() -> void:
 	if player.velocity != Vector2.ZERO:
 		teammate_detection_area.rotation = player.velocity.angle()
 
-	if player.is_carrying_ball() and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.PASS):
-		transition_to_state(Player.State.PASSING)
-
-	if player.is_carrying_ball() and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
-		transition_to_state(Player.State.PREPPING_SHOOT)
+	if player.is_carrying_ball():
+		if KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.PASS):
+			transition_to_state(Player.State.PASSING)
+		elif KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+			transition_to_state(Player.State.PREPPING_SHOOT)
+	elif ball.can_air_interact() and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+		if player.velocity == Vector2.ZERO:
+			pass
+		else:
+			transition_to_state(Player.State.HEADER)
 
 	# if player.velocity != Vector2.ZERO and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
 	# 	transition_to_state(Player.State.TACKLING)
