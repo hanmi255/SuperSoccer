@@ -107,19 +107,25 @@ polygon = PackedVector2Array(14, -1, 28, -1, 14, 115, 0, 115)
 [node name="Players" type="Node2D" parent="ActorsContainer"]
 y_sort_enabled = true
 
-[node name="Player" parent="ActorsContainer/Players" node_paths=PackedStringArray("ball") instance=ExtResource("4_6m72w")]
+[node name="Player" parent="ActorsContainer/Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_6m72w")]
 position = Vector2(186, 110)
 ball = NodePath("../../Ball")
+own_goal = NodePath("../../PitchObjects/GoalHome")
+target_goal = NodePath("../../PitchObjects/GoalAway")
 
-[node name="Player2" parent="ActorsContainer/Players" node_paths=PackedStringArray("ball") instance=ExtResource("4_6m72w")]
+[node name="Player2" parent="ActorsContainer/Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_6m72w")]
 position = Vector2(132, 103)
 ball = NodePath("../../Ball")
 control_scheme = 2
+own_goal = NodePath("../../PitchObjects/GoalHome")
+target_goal = NodePath("../../PitchObjects/GoalAway")
 
-[node name="Player3" parent="ActorsContainer/Players" node_paths=PackedStringArray("ball") instance=ExtResource("4_6m72w")]
+[node name="Player3" parent="ActorsContainer/Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_6m72w")]
 position = Vector2(251, 51)
 ball = NodePath("../../Ball")
 control_scheme = 0
+own_goal = NodePath("../../PitchObjects/GoalAway")
+target_goal = NodePath("../../PitchObjects/GoalHome")
 
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("5_v5dby")]
-position = Vector2(227, 118)
+position = Vector2(199, 112)

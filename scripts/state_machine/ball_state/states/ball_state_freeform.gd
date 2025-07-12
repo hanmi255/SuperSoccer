@@ -20,3 +20,7 @@ func _process(delta: float) -> void:
 func _on_player_entered(body: Player) -> void:
 	ball.carrier = body
 	transition_to_state(Ball.State.CARRIED)
+
+
+func can_air_interact() -> bool:
+	return true
