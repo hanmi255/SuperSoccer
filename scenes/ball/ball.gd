@@ -6,6 +6,8 @@ enum State {CARRIED, FREEFORM, SHOOT}
 const BOUNCINESS := 0.8
 const HIGH_PASS_DISTANCE_THRESHOLD := 130.0
 
+@export var header_connect_min_height: float = 20.0
+@export var header_connect_max_height: float = 40.0
 @export var friction_air: float
 @export var friction_ground: float
 

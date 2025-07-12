@@ -21,5 +21,5 @@ func _process(_delta: float) -> void:
 
 
 func _on_ball_entered(contact_ball: Ball) -> void:
-	if contact_ball.can_air_connect(BALL_HEIGHT_MIN, BALL_HEIGHT_MAX):
+	if contact_ball.can_header_connect():
 		contact_ball.shoot(player.velocity.normalized() * player.power * BONUS_FACTOR)
