@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
@@ -11,6 +11,7 @@ const CONTROL_SCHEME_SPRITE_MAP := {
 }
 
 const GRAVITY := 8.0
+const BALL_CONTROL_HEIGHT_MAX := 10.0
 
 @export var ball: Ball = null
 @export var control_scheme: ControlScheme = ControlScheme.P1
@@ -36,11 +37,13 @@ func _ready() -> void:
 	_set_control_scheme_sprite()
 	switch_state(Player.State.MOVING)
 
+
 func _process(delta: float) -> void:
 	_flip_skin()
 	_set_control_scheme_sprite_visibility()
 	_apply_gravity(delta)
 	move_and_slide()
+
 
 func switch_state(state: Player.State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
@@ -66,6 +69,11 @@ func set_heading() -> void:
 
 func is_carrying_ball() -> bool:
 	return ball.carrier == self
+
+
+func control_ball() -> void:
+	if ball.height > BALL_CONTROL_HEIGHT_MAX:
+		switch_state(Player.State.CHEST_CONTROL)
 
 
 func _flip_skin() -> void:

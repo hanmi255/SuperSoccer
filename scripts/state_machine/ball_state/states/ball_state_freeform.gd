@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 
 func _on_player_entered(body: Player) -> void:
 	ball.carrier = body
+	body.control_ball()
 	transition_to_state(Ball.State.CARRIED)
 
 
