@@ -1,0 +1,2 @@
+class_name AIBehaviorGoalie
+extends AIBehaviorBase

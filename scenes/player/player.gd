@@ -32,7 +32,7 @@ const IDLE_SPEED_THRESHOLD := 1.0 # 静止动画阈值
 @onready var ball_detection_area: Area2D = $BallDetectionArea
 @onready var tackle_damage_emitter_area: Area2D = $TackleDamageEmitterArea
 
-var ai_behavior := AIBehavior.new()
+var ai_behavior := AIBehaviorBase.new()
 var country := ""
 var current_state: PlayerStateBase = null
 var full_name := ""

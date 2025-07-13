@@ -1,4 +1,4 @@
-class_name AIBehavior
+class_name AIBehaviorBase
 extends Node
 
 const AI_TICK_FREQUENCY_DURATION := 200.0 # AI 处理间隔时间
