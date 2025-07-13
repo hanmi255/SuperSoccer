@@ -4,7 +4,7 @@ extends PlayerStateBase
 
 func _process(_delta: float) -> void:
 	if player.control_scheme == Player.ControlScheme.CPU:
-		pass # TODO: 实现AI移动逻辑
+		ai_behavior.process_ai()
 	else:
 		handle_player_movement()
 

@@ -1,9 +1,9 @@
 class_name PlayerStateBicycleKick
 extends PlayerStateBase
 
-const BALL_HEIGHT_MIN := 5.0
-const BALL_HEIGHT_MAX := 25.0
-const BONUS_FACTOR := 2.0
+const BALL_HEIGHT_MIN := 5.0 # 倒钩射门最小高度
+const BALL_HEIGHT_MAX := 25.0 # 倒钩射门最大高度
+const BONUS_FACTOR := 2.0 # 倒钩射门加成因子
 
 
 func _enter_tree() -> void:

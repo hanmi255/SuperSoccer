@@ -1,7 +1,7 @@
 class_name PlayerStateChestControl
 extends PlayerStateBase
 
-const CONTROL_DURATION: float = 500.0
+const CONTROL_DURATION: float = 500.0 # 控球持续时间
 
 var _time_since_control: float = 0.0
 

@@ -1,9 +1,9 @@
 class_name PlayerStateVolleyKick
 extends PlayerStateBase
 
-const BALL_HEIGHT_MIN := 1.0
-const BALL_HEIGHT_MAX := 20.0
-const BONUS_FACTOR := 1.5
+const BALL_HEIGHT_MIN := 1.0 # 凌空射门最小高度
+const BALL_HEIGHT_MAX := 20.0 # 凌空射门最大高度
+const BONUS_FACTOR := 1.5 # 凌空射门加成因子
 
 
 func _enter_tree() -> void:

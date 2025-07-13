@@ -1,8 +1,8 @@
 class_name PlayerStateTackling
 extends PlayerStateBase
 
-const PRIOR_RECOVERY_DURATION := 200
-const GROUND_FRICTION := 250.0
+const PRIOR_RECOVERY_DURATION := 200 # 铲球后恢复持续时间
+const GROUND_FRICTION := 250.0 # 地面摩擦力
 
 var _is_tackle_completed: bool = false
 var _time_finish_tackle: int = 0

@@ -1,9 +1,9 @@
 class_name BallStateShoot
 extends BallStateBase
 
-const SHOOT_DURATION := 1000
-const SHOOT_HEIGHT := 10.0
-const SHOOT_SPRITE_SCALE := 0.8
+const SHOOT_DURATION := 1000 # 射门持续时间
+const SHOOT_HEIGHT := 10.0 # 射门高度
+const SHOOT_SPRITE_SCALE := 0.8 # 射门时球的精灵缩放比例
 
 var time_finish_shoot: int = 0
 

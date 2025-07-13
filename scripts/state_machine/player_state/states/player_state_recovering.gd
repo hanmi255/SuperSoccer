@@ -1,7 +1,7 @@
 class_name PlayerStateRecovering
 extends PlayerStateBase
 
-const RECOVERY_DURATION := 500
+const RECOVERY_DURATION := 500 # 恢复持续时间
 
 var _time_start_recovery: int = 0
 

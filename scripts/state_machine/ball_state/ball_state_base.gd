@@ -1,7 +1,7 @@
 class_name BallStateBase
 extends Node
 
-const GRAVITY := 10.0
+const GRAVITY := 10.0 # 重力加速度
 
 signal state_transition_requested(new_state: Ball.State, _state_data: BallStateData)
 

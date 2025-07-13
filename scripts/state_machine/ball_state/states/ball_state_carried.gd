@@ -1,10 +1,10 @@
 class_name BallStateCarried
 extends BallStateBase
 
-const DRIBBLE_FREQUENCY := 10.0
-const DRIBBLE_INTENSITY := 3.0
-const OFFSET_FROM_CARRIER := Vector2(10, 3)
-const RANDOM_FACTOR := 0.4
+const DRIBBLE_FREQUENCY := 10.0 # 震荡频率
+const DRIBBLE_INTENSITY := 3.0 # 震荡强度
+const OFFSET_FROM_CARRIER := Vector2(10, 3) # 球与球员的偏移量
+const RANDOM_FACTOR := 0.4 # 随机因子
 
 var dribble_time := 0.0
 

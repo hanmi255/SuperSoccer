@@ -10,10 +10,10 @@ const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
 	ControlScheme.P1: preload("res://assets/sprites/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/sprites/props/2p.png"),
-}
-const COUNTRIES := ["FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA", "CANADA"]
-const GRAVITY := 8.0
-const BALL_CONTROL_HEIGHT_MAX := 10.0
+} # 控制方案精灵映射
+const COUNTRIES := ["FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA", "CANADA"] # 国家列表
+const GRAVITY := 8.0 # 重力加速度
+const BALL_CONTROL_HEIGHT_MAX := 10.0 # 控球高度最大值
 
 @export var ball: Ball = null
 @export var control_scheme: ControlScheme
@@ -28,6 +28,7 @@ const BALL_CONTROL_HEIGHT_MAX := 10.0
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 @onready var ball_detection_area: Area2D = $BallDetectionArea
 
+var ai_behavior := AIBehavior.new()
 var country := ""
 var current_state: PlayerStateBase = null
 var full_name := ""
@@ -35,13 +36,19 @@ var heading := Vector2.RIGHT
 var height := 0.0
 var role := Player.Role.DEFENDER
 var skin_color := Player.SkinColor.LIGHT
+var spawn_position := Vector2.ZERO
 var state_factory := PlayerStateFactory.new()
 var v_velocity := 0.0
+var weight_on_duty_steering := 0.0
+
 
 func _ready() -> void:
 	_set_control_scheme_sprite()
 	switch_state(Player.State.MOVING)
 	_set_shader_properties()
+	_setup_ai_behavior()
+	spawn_position = position
+
 
 func _process(delta: float) -> void:
 	_flip_skin()
@@ -70,7 +77,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, ball_detection_area, own_goal, target_goal)
+	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, ball_detection_area, own_goal, target_goal, ai_behavior)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
@@ -119,6 +126,12 @@ func _apply_gravity(delta: float) -> void:
 
 func _set_control_scheme_sprite_visibility() -> void:
 	control_sprite.visible = is_carrying_ball() or control_scheme != ControlScheme.CPU
+
+
+func _setup_ai_behavior() -> void:
+	ai_behavior.setup(self, ball)
+	ai_behavior.name = "AI Behavior"
+	add_child(ai_behavior)
 
 
 func on_animation_finished() -> void:

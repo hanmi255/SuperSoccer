@@ -3,8 +3,8 @@ extends AnimatableBody2D
 
 enum State {CARRIED, FREEFORM, SHOOT}
 
-const BOUNCINESS := 0.8
-const HIGH_PASS_DISTANCE_THRESHOLD := 130.0
+const BOUNCINESS := 0.8 # 球弹跳系数
+const HIGH_PASS_DISTANCE_THRESHOLD := 130.0 # 高空传球距离阈值
 
 @export var header_connect_min_height: float = 20.0
 @export var header_connect_max_height: float = 40.0
@@ -56,7 +56,7 @@ func pass_to(destination: Vector2) -> void:
 	var h_velocity := sqrt(2 * distance * friction_ground)
 	velocity = direction * h_velocity
 
-	# 高抛球不使用 '2' 作为抛物线公式，而是使用 '1.85' 作为抛物线公式
+	# 高空传球不使用 '2' 作为抛物线公式，而是使用 '1.85' 作为抛物线公式
 	# 因为需要球在空中飞行的时间更长，落在球员头顶的位置施展 '倒挂金钩' 而非脚下，所以需要更小的抛物线公式
 	# '1.85' 是根据实际测试得出的一个经验值，可以调整以适应不同的游戏需求，
 	# 如果需要球在空中飞行的时间更短，可以调整这个值为 '2' 或更大

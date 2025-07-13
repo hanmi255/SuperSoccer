@@ -104,7 +104,7 @@ polygon = PackedVector2Array(14, -1, 28, -1, 14, 115, 0, 115)
 y_sort_enabled = true
 
 [node name="Ball" parent="." instance=ExtResource("7_dexk4")]
-position = Vector2(425, 180)
+position = Vector2(410, 106)
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
 limit_left = 0

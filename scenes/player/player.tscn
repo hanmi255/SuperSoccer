@@ -14,7 +14,7 @@ shader = ExtResource("2_75vfm")
 shader_parameter/skin_palette = ExtResource("3_qek5x")
 shader_parameter/team_palette = ExtResource("3_0owmy")
 shader_parameter/skin_color = 0
-shader_parameter/team_color = 1
+shader_parameter/team_color = 0
 
 [sub_resource type="Animation" id="Animation_76oj4"]
 length = 0.001

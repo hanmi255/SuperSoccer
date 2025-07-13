@@ -1,9 +1,9 @@
 class_name Camera
 extends Camera2D
 
-const CAMERA_OFFSET := 100.0
-const SMOOTHING_BALL_CARRIED := 2
-const SMOOTHING_BALL_DEFAULT := 8
+const CAMERA_OFFSET := 100.0 # 相机偏移量
+const SMOOTHING_BALL_CARRIED := 2 # 球被携带时相机平滑速度
+const SMOOTHING_BALL_DEFAULT := 8 # 球未被携带时相机平滑速度
 
 @export var ball: Ball
 

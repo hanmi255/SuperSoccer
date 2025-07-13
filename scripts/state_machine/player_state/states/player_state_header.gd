@@ -1,11 +1,11 @@
 class_name PlayerStateHeader
 extends PlayerStateBase
 
-const BALL_HEIGHT_MIN := 10.0
-const BALL_HEIGHT_MAX := 30.0
-const BONUS_FACTOR := 1.3
-const HEIGHT_START := 0.1
-const V_VELOCITY_START := 1.5
+const BALL_HEIGHT_MIN := 10.0 # 头球最小高度
+const BALL_HEIGHT_MAX := 30.0 # 头球最大高度
+const BONUS_FACTOR := 1.3 # 头球加成因子
+const HEIGHT_START := 0.1 # 头球开始球员高度
+const V_VELOCITY_START := 1.5 # 头球开始垂直速度
 
 
 func _enter_tree() -> void:
