@@ -11,7 +11,7 @@ const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.P1: preload("res://assets/sprites/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/sprites/props/2p.png"),
 }
-
+const COUNTRIES := ["FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA", "CANADA"]
 const GRAVITY := 8.0
 const BALL_CONTROL_HEIGHT_MAX := 10.0
 
@@ -28,6 +28,7 @@ const BALL_CONTROL_HEIGHT_MAX := 10.0
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 @onready var ball_detection_area: Area2D = $BallDetectionArea
 
+var country := ""
 var current_state: PlayerStateBase = null
 var full_name := ""
 var heading := Vector2.RIGHT
@@ -37,11 +38,10 @@ var skin_color := Player.SkinColor.LIGHT
 var state_factory := PlayerStateFactory.new()
 var v_velocity := 0.0
 
-
 func _ready() -> void:
 	_set_control_scheme_sprite()
 	switch_state(Player.State.MOVING)
-
+	_set_shader_properties()
 
 func _process(delta: float) -> void:
 	_flip_skin()
@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 
-func initialize(context_player_pos: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource) -> void:
+func initialize(context_player_pos: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_country: String) -> void:
 	position = context_player_pos
 	ball = context_ball
 	own_goal = context_own_goal
@@ -61,6 +61,7 @@ func initialize(context_player_pos: Vector2, context_ball: Ball, context_own_goa
 	speed = context_player_data.speed
 	power = context_player_data.power
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
+	country = context_country
 
 
 func switch_state(state: Player.State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
@@ -100,6 +101,11 @@ func _flip_skin() -> void:
 
 func _set_control_scheme_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_SPRITE_MAP[control_scheme]
+
+
+func _set_shader_properties() -> void:
+	skin.material.set_shader_parameter("team_color", COUNTRIES.find(country))
+	skin.material.set_shader_parameter("skin_color", skin_color)
 
 
 func _apply_gravity(delta: float) -> void:

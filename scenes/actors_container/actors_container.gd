@@ -22,20 +22,20 @@ func _ready() -> void:
 	var player_test: Player = players_container.get_child(4)
 	player_test.control_scheme = Player.ControlScheme.P1
 	player_test._set_control_scheme_sprite()
-	
 
-func spawn_players(team_name: String, own_goal: Goal) -> void:
-	var players := DataLoader.get_squad(team_name)
+
+func spawn_players(country: String, own_goal: Goal) -> void:
+	var players := DataLoader.get_squad(country)
 	var target_goal := goal_away if own_goal == goal_home else goal_home
 
 	for i in players.size():
 		var player_pos := spawns.get_child(i).global_position as Vector2
 		var player_data := players[i] as PlayerResource
-		var player := spawn_player(player_pos, own_goal, target_goal, player_data)
+		var player := spawn_player(player_pos, own_goal, target_goal, player_data, country)
 		players_container.add_child(player)
 
 
-func spawn_player(player_pos: Vector2, own_goal: Goal, target_goal: Goal, player_data: PlayerResource) -> Player:
+func spawn_player(player_pos: Vector2, own_goal: Goal, target_goal: Goal, player_data: PlayerResource, country: String) -> Player:
 	var player := PLAYER_SCENE.instantiate()
-	player.initialize(player_pos, ball, own_goal, target_goal, player_data)
+	player.initialize(player_pos, ball, own_goal, target_goal, player_data, country)
 	return player
