@@ -5,6 +5,8 @@ const AI_TICK_FREQUENCY_DURATION := 200.0 # AI 处理间隔时间
 const SPREAD_ASSIST_FACTOR := 0.8 # 助攻因子
 const SHOOT_DISTANCE_THRESHOLD := 150.0 # 射门距离阈值
 const SHOOT_PROBABILITY := 0.3 # 射门概率
+const TACKLE_DISTANCE_THRESHOLD := 15.0 # 铲球距离阈值
+const TACKLE_PROBABILITY := 0.3 # 铲球概率
 
 var ball: Ball = null
 var player: Player = null
@@ -66,6 +68,10 @@ func get_bicircular_weight(position: Vector2, center_target: Vector2, inner_radi
 		return lerpf(inner_weight, outer_weight, t)
 
 
+func _is_ball_possessed_by_opponent() -> bool:
+	return ball.carrier != null and ball.carrier.country != player.country
+
+
 func _is_ball_carried_by_teammate() -> bool:
 	return ball.carrier != null and ball.carrier != player and ball.carrier.country == player.country
 
@@ -91,6 +97,9 @@ func _perform_ai_movement() -> void:
 
 
 func _perform_ai_decisions() -> void:
+	if _is_ball_possessed_by_opponent() and player.position.distance_to(ball.position) < TACKLE_DISTANCE_THRESHOLD and randf() < TACKLE_PROBABILITY:
+		player.switch_state(Player.State.TACKLING)
+
 	if ball.carrier == player:
 		var target := player.target_goal.get_center_target_position()
 		if player.position.distance_to(target) < SHOOT_DISTANCE_THRESHOLD and randf() < SHOOT_PROBABILITY:

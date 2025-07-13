@@ -10,6 +10,7 @@ var _time_finish_tackle: int = 0
 
 func _enter_tree() -> void:
 	animation_player.play("tackle")
+	tackle_damage_emitter_area.set_deferred("monitoring", true)
 
 
 func _physics_process(delta: float) -> void:
@@ -22,3 +23,7 @@ func _physics_process(delta: float) -> void:
 
 	elif Time.get_ticks_msec() - _time_finish_tackle > PRIOR_RECOVERY_DURATION:
 		transition_to_state(Player.State.RECOVERING)
+
+
+func _exit_tree() -> void:
+	tackle_damage_emitter_area.set_deferred("monitoring", false)

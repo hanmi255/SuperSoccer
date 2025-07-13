@@ -5,6 +5,7 @@ enum State {CARRIED, FREEFORM, SHOOT}
 
 const BOUNCINESS := 0.8 # 球弹跳系数
 const HIGH_PASS_DISTANCE_THRESHOLD := 130.0 # 高空传球距离阈值
+const TUMBLE_V_VELOCITY := 3.0
 
 @export var friction_air: float
 @export var friction_ground: float
@@ -46,6 +47,13 @@ func shoot(shoot_velocity: Vector2) -> void:
 	velocity = shoot_velocity
 	carrier = null
 	switch_state(Ball.State.SHOOT)
+
+
+func tumble(tumble_velocity: Vector2) -> void:
+	velocity = tumble_velocity
+	carrier = null
+	v_velocity = TUMBLE_V_VELOCITY
+	switch_state(Ball.State.FREEFORM)
 
 
 func pass_to(destination: Vector2) -> void:

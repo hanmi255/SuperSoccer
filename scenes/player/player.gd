@@ -4,7 +4,7 @@ extends CharacterBody2D
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
@@ -29,6 +29,7 @@ const IDLE_SPEED_THRESHOLD := 1.0 # 静止动画阈值
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 @onready var ball_detection_area: Area2D = $BallDetectionArea
+@onready var tackle_damage_emitter_area: Area2D = $TackleDamageEmitterArea
 
 var ai_behavior := AIBehavior.new()
 var country := ""
@@ -49,6 +50,7 @@ func _ready() -> void:
 	switch_state(Player.State.MOVING)
 	_set_shader_properties()
 	_setup_ai_behavior()
+	tackle_damage_emitter_area.body_entered.connect(_on_tackle_player.bind())
 	spawn_position = position
 
 
@@ -79,7 +81,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, ball_detection_area, own_goal, target_goal, ai_behavior)
+	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, ball_detection_area, own_goal, target_goal, tackle_damage_emitter_area, ai_behavior)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
@@ -122,6 +124,7 @@ func control_ball() -> void:
 
 func _flip_skin() -> void:
 	skin.flip_h = heading == Vector2.LEFT
+	tackle_damage_emitter_area.scale.x = -1 if heading == Vector2.LEFT else 1
 
 
 func _set_control_scheme_sprite() -> void:
@@ -146,10 +149,19 @@ func _set_control_scheme_sprite_visibility() -> void:
 	control_sprite.visible = is_carrying_ball() or control_scheme != ControlScheme.CPU
 
 
+func _get_hurt(hurt_direction: Vector2) -> void:
+	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(hurt_direction))
+
+
 func _setup_ai_behavior() -> void:
 	ai_behavior.setup(self, ball)
 	ai_behavior.name = "AI Behavior"
 	add_child(ai_behavior)
+
+
+func _on_tackle_player(body: Node2D) -> void:
+	if body != self and body.country != country and body == ball.carrier:
+		body._get_hurt(position.direction_to(body.position))
 
 
 func on_animation_finished() -> void:

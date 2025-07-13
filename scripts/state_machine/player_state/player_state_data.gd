@@ -1,12 +1,18 @@
 # 使用建造者模式构建数据对象
 class_name PlayerStateData
 
+var hurt_direction: Vector2
 var shoot_direction: Vector2
 var shoot_power: float
 
 
 static func build() -> PlayerStateData:
 	return PlayerStateData.new()
+
+
+func set_hurt_direction(direction: Vector2) -> PlayerStateData:
+	hurt_direction = direction
+	return self
 
 
 func set_shoot_direction(direction: Vector2) -> PlayerStateData:

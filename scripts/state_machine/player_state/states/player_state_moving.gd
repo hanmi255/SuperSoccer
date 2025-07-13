@@ -33,5 +33,5 @@ func handle_player_movement() -> void:
 		else:
 			transition_to_state(Player.State.HEADER)
 
-	# if player.velocity != Vector2.ZERO and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
-	# 	transition_to_state(Player.State.TACKLING)
+	if player.velocity != Vector2.ZERO and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+		transition_to_state(Player.State.TACKLING)
