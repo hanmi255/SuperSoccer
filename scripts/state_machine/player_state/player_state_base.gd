@@ -25,6 +25,7 @@ func setup(context_player: Player, context_ball: Ball, context_state_data: Playe
 	target_goal = context_target_goal
 	ai_behavior = context_ai_behavior
 
+
 func transition_to_state(new_state: Player.State, _state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	state_transition_requested.emit(new_state, _state_data)
 
