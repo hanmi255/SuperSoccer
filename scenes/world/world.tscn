@@ -1,21 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://yl0k3oh1qpr4"]
+[gd_scene load_steps=5 format=3 uid="uid://yl0k3oh1qpr4"]
 
 [ext_resource type="Texture2D" uid="uid://d3mk4qm4p2k0x" path="res://assets/sprites/backgrounds/pitch-background.png" id="1_1fp7r"]
-[ext_resource type="Script" uid="uid://djqugucq5tmy5" path="res://scenes/world/camera/camera.gd" id="1_t5ptc"]
 [ext_resource type="Texture2D" uid="uid://bissasix8j1km" path="res://assets/sprites/backgrounds/pitch-pattern.png" id="2_6m72w"]
 [ext_resource type="Texture2D" uid="uid://c3bq2x204sll6" path="res://assets/sprites/backgrounds/pitch-lines.png" id="3_v5dby"]
-[ext_resource type="PackedScene" uid="uid://1kw73hxojnmq" path="res://scenes/actors_container/actors_container.tscn" id="5_v5dby"]
+[ext_resource type="PackedScene" uid="uid://bonqlhrybcilo" path="res://scenes/actors_container/actors_container.tscn" id="5_v5dby"]
 
 [node name="World" type="Node2D"]
-
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
-limit_left = 0
-limit_top = 0
-limit_right = 850
-limit_bottom = 360
-position_smoothing_enabled = true
-script = ExtResource("1_t5ptc")
-ball = NodePath("../ActorsContainer/Ball")
 
 [node name="BG" type="Node2D" parent="."]
 
@@ -35,5 +25,3 @@ texture = ExtResource("3_v5dby")
 centered = false
 
 [node name="ActorsContainer" parent="." instance=ExtResource("5_v5dby")]
-
-[editable path="ActorsContainer"]

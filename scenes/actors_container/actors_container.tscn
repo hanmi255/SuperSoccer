@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://1kw73hxojnmq"]
+[gd_scene load_steps=10 format=3 uid="uid://bonqlhrybcilo"]
 
 [ext_resource type="Script" uid="uid://c8q8pgujxm0e3" path="res://scenes/actors_container/actors_container.gd" id="1_lo22j"]
 [ext_resource type="PackedScene" uid="uid://d3ntu35qjo26p" path="res://scenes/goal/goal.tscn" id="2_f8oid"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ydl6dfljxgc6" path="res://assets/sprites/backgrounds/side-wall.png" id="5_ssukx"]
 [ext_resource type="PackedScene" uid="uid://cj8rvcvb2ib3n" path="res://scenes/player/player.tscn" id="6_uju3c"]
 [ext_resource type="PackedScene" uid="uid://dwovdsgfxg3ol" path="res://scenes/ball/ball.tscn" id="7_dexk4"]
+[ext_resource type="Script" uid="uid://djqugucq5tmy5" path="res://scenes/actors_container/camera/camera.gd" id="8_f8oid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dlabj"]
 size = Vector2(802, 7)
@@ -106,6 +107,7 @@ y_sort_enabled = true
 [node name="Player" parent="Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("6_uju3c")]
 position = Vector2(186, 110)
 ball = NodePath("../../Ball")
+control_scheme = 1
 own_goal = NodePath("../../PitchObjects/GoalHome")
 target_goal = NodePath("../../PitchObjects/GoalAway")
 
@@ -119,9 +121,17 @@ target_goal = NodePath("../../PitchObjects/GoalAway")
 [node name="Player3" parent="Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("6_uju3c")]
 position = Vector2(251, 51)
 ball = NodePath("../../Ball")
-control_scheme = 0
 own_goal = NodePath("../../PitchObjects/GoalAway")
 target_goal = NodePath("../../PitchObjects/GoalHome")
 
 [node name="Ball" parent="." instance=ExtResource("7_dexk4")]
 position = Vector2(199, 112)
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
+limit_left = 0
+limit_top = 0
+limit_right = 850
+limit_bottom = 360
+position_smoothing_enabled = true
+script = ExtResource("8_f8oid")
+ball = NodePath("../Ball")

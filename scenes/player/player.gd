@@ -16,7 +16,7 @@ const GRAVITY := 8.0
 const BALL_CONTROL_HEIGHT_MAX := 10.0
 
 @export var ball: Ball = null
-@export var control_scheme: ControlScheme = ControlScheme.P1
+@export var control_scheme: ControlScheme
 @export var power: float = 70.0
 @export var speed: float = 80.0
 @export var own_goal: Goal = null
