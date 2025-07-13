@@ -22,6 +22,7 @@ var state_factory := BallStateFactory.new()
 var velocity := Vector2.ZERO
 var v_velocity := 0.0
 
+
 func _ready() -> void:
 	switch_state(Ball.State.FREEFORM)
 

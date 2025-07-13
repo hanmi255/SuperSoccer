@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 enum ControlScheme {CPU, P1, P2}
+enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
+enum SkinColor {LIGHT, MEDIUM, DARK}
 enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
@@ -27,8 +29,11 @@ const BALL_CONTROL_HEIGHT_MAX := 10.0
 @onready var ball_detection_area: Area2D = $BallDetectionArea
 
 var current_state: PlayerStateBase = null
+var full_name := ""
 var heading := Vector2.RIGHT
 var height := 0.0
+var role := Player.Role.DEFENDER
+var skin_color := Player.SkinColor.LIGHT
 var state_factory := PlayerStateFactory.new()
 var v_velocity := 0.0
 
@@ -43,6 +48,19 @@ func _process(delta: float) -> void:
 	_set_control_scheme_sprite_visibility()
 	_apply_gravity(delta)
 	move_and_slide()
+
+
+func initialize(context_player_pos: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource) -> void:
+	position = context_player_pos
+	ball = context_ball
+	own_goal = context_own_goal
+	target_goal = context_target_goal
+	full_name = context_player_data.full_name
+	role = context_player_data.role
+	skin_color = context_player_data.skin_color
+	speed = context_player_data.speed
+	power = context_player_data.power
+	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 
 
 func switch_state(state: Player.State, state_data: PlayerStateData = PlayerStateData.new()) -> void:

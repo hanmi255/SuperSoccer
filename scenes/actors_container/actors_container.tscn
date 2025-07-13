@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://1kw73hxojnmq"]
+
+[ext_resource type="Script" uid="uid://c8q8pgujxm0e3" path="res://scenes/actors_container/actors_container.gd" id="1_lo22j"]
+[ext_resource type="PackedScene" uid="uid://d3ntu35qjo26p" path="res://scenes/goal/goal.tscn" id="2_f8oid"]
+[ext_resource type="Texture2D" uid="uid://cm0emn2yq7s4k" path="res://assets/sprites/backgrounds/top-wall.png" id="3_4ad0x"]
+[ext_resource type="Texture2D" uid="uid://botjgrr3dmmc7" path="res://assets/sprites/backgrounds/bottom-wall.png" id="4_l0or0"]
+[ext_resource type="Texture2D" uid="uid://ydl6dfljxgc6" path="res://assets/sprites/backgrounds/side-wall.png" id="5_ssukx"]
+[ext_resource type="PackedScene" uid="uid://cj8rvcvb2ib3n" path="res://scenes/player/player.tscn" id="6_uju3c"]
+[ext_resource type="PackedScene" uid="uid://dwovdsgfxg3ol" path="res://scenes/ball/ball.tscn" id="7_dexk4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlabj"]
+size = Vector2(802, 7)
+
+[node name="ActorsContainer" type="Node2D" node_paths=PackedStringArray("ball", "goal_home", "goal_away")]
+y_sort_enabled = true
+script = ExtResource("1_lo22j")
+ball = NodePath("Ball")
+goal_home = NodePath("PitchObjects/GoalHome")
+goal_away = NodePath("PitchObjects/GoalAway")
+team_home = "USA"
+team_away = "CANADA"
+
+[node name="Spawns" type="Node2D" parent="."]
+position = Vector2(425, 180)
+
+[node name="GoaliePosition" type="Marker2D" parent="Spawns"]
+position = Vector2(-345, 1)
+
+[node name="DefenderPosition" type="Marker2D" parent="Spawns"]
+position = Vector2(-235, -30)
+
+[node name="DefenderPosition2" type="Marker2D" parent="Spawns"]
+position = Vector2(-235, 30)
+
+[node name="MidfielderPosition" type="Marker2D" parent="Spawns"]
+position = Vector2(-125, 0)
+
+[node name="ForwardPosition" type="Marker2D" parent="Spawns"]
+position = Vector2(-25, -80)
+
+[node name="ForwardPosition2" type="Marker2D" parent="Spawns"]
+position = Vector2(-25, 80)
+
+[node name="PitchObjects" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="GoalHome" parent="PitchObjects" instance=ExtResource("2_f8oid")]
+position = Vector2(32, 220)
+
+[node name="GoalAway" parent="PitchObjects" instance=ExtResource("2_f8oid")]
+position = Vector2(818, 220)
+scale = Vector2(-1, 1)
+
+[node name="TopWall" type="Sprite2D" parent="PitchObjects"]
+position = Vector2(49, 32)
+texture = ExtResource("3_4ad0x")
+centered = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PitchObjects/TopWall"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PitchObjects/TopWall/StaticBody2D"]
+polygon = PackedVector2Array(0, 116, 13, 0, 739, 0, 752, 116, 739, 116, 729, 14, 24, 14, 12, 116)
+
+[node name="BottomWall" type="Sprite2D" parent="PitchObjects"]
+position = Vector2(24, 344)
+texture = ExtResource("4_l0or0")
+centered = false
+offset = Vector2(0, -12)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PitchObjects/BottomWall"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="PitchObjects/BottomWall/StaticBody2D"]
+position = Vector2(401, -4)
+shape = SubResource("RectangleShape2D_dlabj")
+
+[node name="LeftWall" type="Sprite2D" parent="PitchObjects"]
+position = Vector2(24, 221)
+texture = ExtResource("5_ssukx")
+centered = false
+offset = Vector2(0, -14)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PitchObjects/LeftWall"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PitchObjects/LeftWall/StaticBody2D"]
+polygon = PackedVector2Array(14, -1, 28, -1, 14, 115, 0, 115)
+
+[node name="RightWall" type="Sprite2D" parent="PitchObjects"]
+position = Vector2(826, 221)
+scale = Vector2(-1, 1)
+texture = ExtResource("5_ssukx")
+centered = false
+offset = Vector2(0, -14)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PitchObjects/RightWall"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PitchObjects/RightWall/StaticBody2D"]
+polygon = PackedVector2Array(14, -1, 28, -1, 14, 115, 0, 115)
+
+[node name="Players" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("6_uju3c")]
+position = Vector2(186, 110)
+ball = NodePath("../../Ball")
+own_goal = NodePath("../../PitchObjects/GoalHome")
+target_goal = NodePath("../../PitchObjects/GoalAway")
+
+[node name="Player2" parent="Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("6_uju3c")]
+position = Vector2(132, 103)
+ball = NodePath("../../Ball")
+control_scheme = 2
+own_goal = NodePath("../../PitchObjects/GoalHome")
+target_goal = NodePath("../../PitchObjects/GoalAway")
+
+[node name="Player3" parent="Players" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("6_uju3c")]
+position = Vector2(251, 51)
+ball = NodePath("../../Ball")
+control_scheme = 0
+own_goal = NodePath("../../PitchObjects/GoalAway")
+target_goal = NodePath("../../PitchObjects/GoalHome")
+
+[node name="Ball" parent="." instance=ExtResource("7_dexk4")]
+position = Vector2(199, 112)
