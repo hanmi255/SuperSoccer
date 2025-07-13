@@ -14,6 +14,8 @@ const CONTROL_SCHEME_SPRITE_MAP := {
 const COUNTRIES := ["FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA", "CANADA"] # 国家列表
 const GRAVITY := 8.0 # 重力加速度
 const BALL_CONTROL_HEIGHT_MAX := 10.0 # 控球高度最大值
+const WALK_ANIM_THRESHOLD := 0.6 # 行走动画阈值
+const IDLE_SPEED_THRESHOLD := 1.0 # 静止动画阈值
 
 @export var ball: Ball = null
 @export var control_scheme: ControlScheme
@@ -85,7 +87,18 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 
 func set_movement_animation() -> void:
-	animation_player.play("run" if velocity.length() > 0 else "idle")
+	var vel_length := velocity.length()
+	var anim_name := ""
+
+	if vel_length < IDLE_SPEED_THRESHOLD:
+		anim_name = "idle"
+	elif vel_length < speed * WALK_ANIM_THRESHOLD:
+		anim_name = "walk"
+	else:
+		anim_name = "run"
+
+	if animation_player.current_animation != anim_name:
+		animation_player.play(anim_name)
 
 
 func set_heading() -> void:
