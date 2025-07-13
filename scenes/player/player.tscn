@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cj8rvcvb2ib3n"]
+[gd_scene load_steps=27 format=3 uid="uid://cj8rvcvb2ib3n"]
 
 [ext_resource type="Texture2D" uid="uid://d34sijnprdcgb" path="res://assets/sprites/characters/soccer-player.png" id="1_rp718"]
 [ext_resource type="Script" uid="uid://dl5qe3m0458ce" path="res://scenes/player/player.gd" id="1_yewv4"]
@@ -304,6 +304,10 @@ _data = {
 radius = 4.0
 height = 18.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qek5x"]
+radius = 40.0
+height = 120.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0owmy"]
 radius = 6.0
 height = 20.0
@@ -344,18 +348,27 @@ position = Vector2(0, -3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_atpat")
 
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_gmlin")
+centered = false
+offset = Vector2(-8, -15)
+
 [node name="TeammateDetectionArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TeammateDetectionArea"]
 polygon = PackedVector2Array(0, -40, 280, -150, 330, -100, 330, 100, 280, 150, 0, 40)
 
-[node name="ShadowSprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_gmlin")
-centered = false
-offset = Vector2(-8, -15)
+[node name="OpponentDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OpponentDetectionArea"]
+position = Vector2(20, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qek5x")
 
 [node name="BallDetectionArea" type="Area2D" parent="."]
 position = Vector2(0, -8)

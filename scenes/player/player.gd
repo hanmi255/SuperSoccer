@@ -28,6 +28,7 @@ const IDLE_SPEED_THRESHOLD := 1.0 # 静止动画阈值
 @onready var control_sprite: Sprite2D = %ControlSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
+@onready var opponent_detection_area: Area2D = $OpponentDetectionArea
 @onready var ball_detection_area: Area2D = $BallDetectionArea
 @onready var tackle_damage_emitter_area: Area2D = $TackleDamageEmitterArea
 
@@ -81,7 +82,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, ball_detection_area, own_goal, target_goal, tackle_damage_emitter_area, ai_behavior)
+	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, opponent_detection_area, ball_detection_area, own_goal, target_goal, tackle_damage_emitter_area, ai_behavior)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
@@ -123,8 +124,14 @@ func control_ball() -> void:
 
 
 func _flip_skin() -> void:
-	skin.flip_h = heading == Vector2.LEFT
-	tackle_damage_emitter_area.scale.x = -1 if heading == Vector2.LEFT else 1
+	if heading == Vector2.LEFT:
+		skin.flip_h = true
+		opponent_detection_area.scale.x = -1
+		tackle_damage_emitter_area.scale.x = -1
+	elif heading == Vector2.RIGHT:
+		skin.flip_h = false
+		opponent_detection_area.scale.x = 1
+		tackle_damage_emitter_area.scale.x = 1
 
 
 func _set_control_scheme_sprite() -> void:
@@ -154,7 +161,7 @@ func _get_hurt(hurt_direction: Vector2) -> void:
 
 
 func _setup_ai_behavior() -> void:
-	ai_behavior.setup(self, ball)
+	ai_behavior.setup(self, ball, opponent_detection_area)
 	ai_behavior.name = "AI Behavior"
 	add_child(ai_behavior)
 
