@@ -3,7 +3,7 @@
 extends Node
 
 ## 定义游戏中的基本动作类型
-enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS}
+enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS, SWAP_SOUL}
 
 ## 控制方案映射字典
 ## 将不同玩家的控制方案映射到具体的输入动作
@@ -15,6 +15,7 @@ const ACTIONS_MAP: Dictionary = {
 		Action.DOWN: "p1_down",
 		Action.SHOOT: "p1_shoot",
 		Action.PASS: "p1_pass",
+		Action.SWAP_SOUL: "p1_swap_soul",
 	},
 	Player.ControlScheme.P2: {
 		Action.LEFT: "p2_left",
@@ -23,6 +24,7 @@ const ACTIONS_MAP: Dictionary = {
 		Action.DOWN: "p2_down",
 		Action.SHOOT: "p2_shoot",
 		Action.PASS: "p2_pass",
+		Action.SWAP_SOUL: "p2_swap_soul",
 	},
 }
 

@@ -30,7 +30,7 @@ func _ready() -> void:
 	# 添加可控制测试球员
 	var player_test: Player = players_container.get_child(4)
 	player_test.control_scheme = Player.ControlScheme.P1
-	player_test._set_control_scheme_sprite()
+	player_test.set_control_scheme_sprite()
 
 
 func _process(_delta: float) -> void:
@@ -61,6 +61,7 @@ func spawn_players(country: String, own_goal: Goal) -> Array[Player]:
 func spawn_player(player_pos: Vector2, own_goal: Goal, target_goal: Goal, player_data: PlayerResource, country: String) -> Player:
 	var player := PLAYER_SCENE.instantiate()
 	player.initialize(player_pos, ball, own_goal, target_goal, player_data, country)
+	player.swap_soul_requested.connect(_on_player_swap_soul_requested.bind())
 	return player
 
 
@@ -78,3 +79,23 @@ func set_on_duty_weights() -> void:
 		var squad_size := cpu_players.size()
 		for i in range(squad_size):
 			cpu_players[i].weight_on_duty_steering = 1.0 - ease(float(i) / MAX_WEIGHT_FACTOR, WEIGHT_EASE_CURVE)
+
+
+func _on_player_swap_soul_requested(requester: Player) -> void:
+	var squad_to_swap := squad_home if requester.country == team_home else squad_away
+	# 过滤非守门员的CPU
+	var cpu_players: Array[Player] = squad_to_swap.filter(
+		func(p: Player): return p.control_scheme == Player.ControlScheme.CPU and p.role != Player.Role.GOALIE
+	)
+	# 根据与请求者的距离排序
+	cpu_players.sort_custom(
+		func(a: Player, b: Player): return a.position.distance_squared_to(requester.position) < b.position.distance_squared_to(requester.position)
+	)
+	var target_player := cpu_players[0]
+	# 如果目标球员距离球更近，则交换灵魂
+	if target_player.position.distance_squared_to(ball.position) < requester.position.distance_squared_to(ball.position):
+		var player_control_scheme := requester.control_scheme
+		requester.control_scheme = target_player.control_scheme
+		requester.set_control_scheme_sprite()
+		target_player.control_scheme = player_control_scheme
+		target_player.set_control_scheme_sprite()

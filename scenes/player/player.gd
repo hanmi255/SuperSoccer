@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal swap_soul_requested(requester: Player)
+
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
 enum SkinColor {LIGHT, MEDIUM, DARK}
@@ -50,7 +52,7 @@ var weight_on_duty_steering := 0.0
 
 
 func _ready() -> void:
-	_set_control_scheme_sprite()
+	set_control_scheme_sprite()
 	_setup_ai_behavior()
 	switch_state(Player.State.MOVING)
 	_set_shader_properties()
@@ -149,7 +151,7 @@ func _flip_skin() -> void:
 		tackle_damage_emitter_area.scale.x = 1
 
 
-func _set_control_scheme_sprite() -> void:
+func set_control_scheme_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_SPRITE_MAP[control_scheme]
 
 
