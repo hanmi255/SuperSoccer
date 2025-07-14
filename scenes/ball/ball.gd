@@ -5,7 +5,7 @@ enum State {CARRIED, FREEFORM, SHOOT}
 
 const BOUNCINESS := 0.8 # 球弹跳系数
 const HIGH_PASS_DISTANCE_THRESHOLD := 130.0 # 高空传球距离阈值
-const TUMBLE_V_VELOCITY := 3.0
+const TUMBLE_V_VELOCITY := 3.0 # 滚球速度
 
 @export var friction_air: float
 @export var friction_ground: float

@@ -6,6 +6,7 @@ const AI_TICK_FREQUENCY_DURATION := 200.0 # AI 处理间隔时间
 var ball: Ball = null
 var opponent_detection_area: Area2D = null
 var player: Player = null
+var teammate_detection_area: Area2D = null
 var time_since_last_ai_tick := 0.0
 
 
@@ -13,10 +14,11 @@ func _ready() -> void:
 	time_since_last_ai_tick = Time.get_ticks_msec() + randf_range(0, AI_TICK_FREQUENCY_DURATION)
 
 
-func setup(context_player: Player, context_ball: Ball, context_opponent_detection_area: Area2D) -> void:
+func setup(context_player: Player, context_ball: Ball, context_opponent_detection_area: Area2D, context_teammate_detection_area: Area2D) -> void:
 	player = context_player
 	ball = context_ball
 	opponent_detection_area = context_opponent_detection_area
+	teammate_detection_area = context_teammate_detection_area
 
 
 func process_ai() -> void:
@@ -52,25 +54,34 @@ func get_bicircular_weight(position: Vector2, center_target: Vector2, inner_radi
 
 
 # 判断球是否被对手控制
-func _is_ball_possessed_by_opponent() -> bool:
+func is_ball_possessed_by_opponent() -> bool:
 	return ball.carrier != null and ball.carrier.country != player.country
 
 
 # 判断球是否被队友控制
-func _is_ball_carried_by_teammate() -> bool:
+func is_ball_carried_by_teammate() -> bool:
 	return ball.carrier != null and ball.carrier != player and ball.carrier.country == player.country
 
 
 # 调整球员朝向目标球门
-func _face_towards_target_goal() -> void:
+func face_towards_target_goal() -> void:
 	if not player.is_facing_target_goal():
 		player.heading = player.heading * -1
 
 
 # 判断是否有对手靠近
-func _has_opponents_nearby() -> bool:
+func has_opponents_nearby() -> bool:
 	var players := opponent_detection_area.get_overlapping_bodies()
 	return players.find_custom(
 		func(p: Player) -> bool:
 			return p.country != player.country
 	) != -1
+
+
+# 寻找视野范围是否有队友
+func has_teammate_in_view() -> bool:
+	var players_in_view := teammate_detection_area.get_overlapping_bodies()
+	var teammates_in_view := players_in_view.filter(
+		func(p: Player): return p != player and p.country == player.country
+	)
+	return teammates_in_view.size() > 0
