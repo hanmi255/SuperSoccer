@@ -133,6 +133,11 @@ func control_ball() -> void:
 		switch_state(Player.State.CHEST_CONTROL)
 
 
+func get_pass_request(target: Player) -> void:
+	if ball.carrier == self and current_state != null and current_state.can_pass():
+		switch_state(Player.State.PASSING, PlayerStateData.build().set_pass_target(target))
+
+
 func _flip_skin() -> void:
 	if heading == Vector2.LEFT:
 		skin.flip_h = true

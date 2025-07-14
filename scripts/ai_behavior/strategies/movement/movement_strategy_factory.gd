@@ -1,6 +1,7 @@
 class_name MovementStrategyFactory
 extends RefCounted
 
+
 static func create_strategy(player: Player, ball: Ball, ai_behavior: AIBehaviorBase) -> MovementStrategyBase:
 	if player.is_carrying_ball():
 		return CarrierMovementStrategy.new(player, ball, ai_behavior)

@@ -7,6 +7,7 @@ const EASE_REWARD_FACTOR := 2.0 # 准备射门持续时间奖励衰减因子
 var _shoot_direction := Vector2.ZERO
 var _time_start_shoot := 0.0
 
+
 func _enter_tree() -> void:
 	animation_player.play("prep_kick")
 	player.velocity = Vector2.ZERO
@@ -26,3 +27,7 @@ func _process(delta: float) -> void:
 
 		var _state_data = PlayerStateData.build().set_shoot_direction(_shoot_direction).set_shoot_power(shoot_power)
 		transition_to_state(Player.State.SHOOTING, _state_data)
+
+
+func can_pass() -> bool:
+	return true

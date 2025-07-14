@@ -19,8 +19,11 @@ func find_teammate_in_view() -> Player:
 
 
 func on_animation_finished() -> void:
-	var pass_target := find_teammate_in_view()
-	# 没有队友时，允许球向前移动一段距离
+	var pass_target := state_data.pass_target
+	# 没有来自队友的传球请求时，寻找视野内的队友
+	if pass_target == null:
+		pass_target = find_teammate_in_view()
+	# 没有找到队友时，允许球向前移动一段距离
 	if pass_target == null:
 		ball.pass_to(ball.position + player.heading * player.speed)
 	# 传给队友时，需要考虑队友的速度

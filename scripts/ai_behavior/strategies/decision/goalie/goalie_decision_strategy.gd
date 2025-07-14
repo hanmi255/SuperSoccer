@@ -1,6 +1,7 @@
 class_name GoalieDecisionStrategy
 extends DecisionStrategyBase
 
+
 func make_decisions() -> void:
 	_handle_ball_threat()
 

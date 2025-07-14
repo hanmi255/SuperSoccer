@@ -28,6 +28,14 @@ func can_carry_ball() -> bool:
 	return player.role != Player.Role.GOALIE
 
 
+func can_teammate_pass_ball() -> bool:
+	return ball.carrier != null and ball.carrier.country == player.country and ball.carrier.control_scheme == Player.ControlScheme.CPU
+
+
+func can_pass() -> bool:
+	return true
+
+
 func _update_teammate_detection_direction() -> void:
 	if player.velocity != Vector2.ZERO:
 		teammate_detection_area.rotation = player.velocity.angle()
@@ -35,7 +43,7 @@ func _update_teammate_detection_direction() -> void:
 
 func _handle_action_inputs() -> void:
 	var is_moving := player.velocity != Vector2.ZERO
-	
+
 	if player.is_carrying_ball():
 		_handle_ball_carrier_actions()
 	else:
@@ -50,9 +58,13 @@ func _handle_ball_carrier_actions() -> void:
 
 
 func _handle_non_carrier_actions(is_moving: bool) -> void:
+	if can_teammate_pass_ball() and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.PASS):
+		ball.carrier.get_pass_request(player)
+		return
+
 	if not KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
 		return
-	
+
 	if ball.can_air_interact():
 		_handle_air_interaction(is_moving)
 	elif is_moving:

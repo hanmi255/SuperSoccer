@@ -1,6 +1,7 @@
 class_name AIBehaviorGoalie
 extends AIBehaviorBase
 
+
 func _perform_ai_movement() -> void:
 	var movement_strategy = MovementStrategyFactory.create_goalie_strategy(player, ball, self)
 	var total_steering_force = movement_strategy.get_steering_force()
