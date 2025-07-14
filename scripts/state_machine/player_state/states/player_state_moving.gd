@@ -24,6 +24,10 @@ func handle_player_movement() -> void:
 	_handle_action_inputs()
 
 
+func can_carry_ball() -> bool:
+	return player.role != Player.Role.GOALIE
+
+
 func _update_teammate_detection_direction() -> void:
 	if player.velocity != Vector2.ZERO:
 		teammate_detection_area.rotation = player.velocity.angle()

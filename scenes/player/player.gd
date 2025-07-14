@@ -4,7 +4,7 @@ extends CharacterBody2D
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
@@ -25,15 +25,18 @@ const IDLE_SPEED_THRESHOLD := 1.0 # 静止动画阈值
 @export var target_goal: Goal = null
 
 @onready var skin: Sprite2D = $Skin
+@onready var goalie_hands_collision: CollisionShape2D = %GoalieHandsCollision
 @onready var control_sprite: Sprite2D = %ControlSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 @onready var opponent_detection_area: Area2D = $OpponentDetectionArea
 @onready var ball_detection_area: Area2D = $BallDetectionArea
 @onready var tackle_damage_emitter_area: Area2D = $TackleDamageEmitterArea
+@onready var permanent_damage_emitter_area: Area2D = $PermanentDamageEmitterArea
 
-var ai_behavior := AIBehaviorBase.new()
+var ai_behavior_factory := AIBehaviorFactory.new()
 var country := ""
+var current_ai_behavior: AIBehaviorBase = null
 var current_state: PlayerStateBase = null
 var full_name := ""
 var heading := Vector2.RIGHT
@@ -48,10 +51,13 @@ var weight_on_duty_steering := 0.0
 
 func _ready() -> void:
 	_set_control_scheme_sprite()
+	_setup_ai_behavior()
 	switch_state(Player.State.MOVING)
 	_set_shader_properties()
-	_setup_ai_behavior()
-	tackle_damage_emitter_area.body_entered.connect(_on_tackle_player.bind())
+	permanent_damage_emitter_area.monitoring = role == Role.GOALIE
+	goalie_hands_collision.disabled = role != Role.GOALIE
+	tackle_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
+	permanent_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
 	spawn_position = position
 
 
@@ -82,7 +88,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 
 	current_state = state_factory.get_fresh_state(state)
 
-	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, opponent_detection_area, ball_detection_area, own_goal, target_goal, tackle_damage_emitter_area, ai_behavior)
+	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, opponent_detection_area, ball_detection_area, own_goal, target_goal, tackle_damage_emitter_area, current_ai_behavior)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
@@ -107,6 +113,10 @@ func set_movement_animation() -> void:
 func set_heading() -> void:
 	if velocity.x != 0: # 只在玩家实际水平移动时更新方向
 		heading = Vector2.RIGHT if velocity.x > 0 else Vector2.LEFT
+
+
+func can_carry_ball() -> bool:
+	return current_state != null and current_state.can_carry_ball()
 
 
 func is_carrying_ball() -> bool:
@@ -161,12 +171,13 @@ func _get_hurt(hurt_direction: Vector2) -> void:
 
 
 func _setup_ai_behavior() -> void:
-	ai_behavior.setup(self, ball, opponent_detection_area)
-	ai_behavior.name = "AI Behavior"
-	add_child(ai_behavior)
+	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
+	current_ai_behavior.setup(self, ball, opponent_detection_area)
+	current_ai_behavior.name = "AI Behavior"
+	add_child(current_ai_behavior)
 
 
-func _on_tackle_player(body: Node2D) -> void:
+func _on_hurt_player(body: Node2D) -> void:
 	if body != self and body.country != country and body == ball.carrier:
 		body._get_hurt(position.direction_to(body.position))
 

@@ -17,6 +17,7 @@ func _init() -> void:
 		Player.State.BICYCLE_KICK: PlayerStateBicycleKick,
 		Player.State.CHEST_CONTROL: PlayerStateChestControl,
 		Player.State.HURT: PlayerStateHurt,
+		Player.State.DIVING: PlayerStateDiving,
 	}
 
 
