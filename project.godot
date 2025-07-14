@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-KeyUtils="*res://scripts/utils/key_utils.gd"
-DataLoader="*res://scripts/utils/data_loader.gd"
+KeyUtils="*res://scripts/auto_load/key_utils.gd"
+DataLoader="*res://scripts/auto_load/data_loader.gd"
+EventBus="*res://scripts/auto_load/event_bus.gd"
 
 [display]
 

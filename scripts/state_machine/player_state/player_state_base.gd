@@ -1,7 +1,7 @@
 class_name PlayerStateBase
 extends Node
 
-signal state_transition_requested(new_state: Player.State, _state_data: PlayerStateData)
+signal state_transition_requested(new_state: Player.State, data: PlayerStateData)
 
 var ai_behavior: AIBehaviorBase = null
 var animation_player: AnimationPlayer = null
@@ -14,6 +14,7 @@ var opponent_detection_area: Area2D = null
 var own_goal: Goal = null
 var target_goal: Goal = null
 var tackle_damage_emitter_area: Area2D = null
+
 
 func setup(context_player: Player, context_ball: Ball, context_state_data: PlayerStateData, context_animation_player: AnimationPlayer, context_teammate_detection_area: Area2D, context_opponent_detection_area: Area2D, context_ball_detection_area: Area2D, context_own_goal: Goal, context_target_goal: Goal, context_tackle_damage_emitter_area: Area2D, context_ai_behavior: AIBehaviorBase) -> void:
 	player = context_player
@@ -29,8 +30,8 @@ func setup(context_player: Player, context_ball: Ball, context_state_data: Playe
 	ai_behavior = context_ai_behavior
 
 
-func transition_to_state(new_state: Player.State, _state_data: PlayerStateData = PlayerStateData.new()) -> void:
-	state_transition_requested.emit(new_state, _state_data)
+func transition_to_state(new_state: Player.State, data: PlayerStateData = PlayerStateData.new()) -> void:
+	state_transition_requested.emit(new_state, data)
 
 
 func can_carry_ball() -> bool:

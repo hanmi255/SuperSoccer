@@ -1,9 +1,9 @@
 class_name BallStateBase
 extends Node
 
-const GRAVITY := 10.0 # 重力加速度
+signal state_transition_requested(new_state: Ball.State, data: BallStateData)
 
-signal state_transition_requested(new_state: Ball.State, _state_data: BallStateData)
+const GRAVITY := 10.0 # 重力加速度
 
 var animation_player: AnimationPlayer = null
 var ball: Ball = null
@@ -22,8 +22,8 @@ func setup(context_ball: Ball, context_ball_sprite: Sprite2D, context_carrier: P
 	player_detection_area = context_player_detection_area
 
 
-func transition_to_state(new_state: Ball.State, _state_data: BallStateData = BallStateData.new()) -> void:
-	state_transition_requested.emit(new_state, _state_data)
+func transition_to_state(new_state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
+	state_transition_requested.emit(new_state, data)
 
 
 func set_ball_animation_from_velocity() -> void:
