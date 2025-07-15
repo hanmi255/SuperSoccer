@@ -59,7 +59,7 @@ func _handle_ball_carrier_actions() -> void:
 
 func _handle_non_carrier_actions(is_moving: bool) -> void:
 	if KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.SWAP_SOUL):
-		player.swap_soul_requested.emit(player)
+		EventBus.swap_soul_requested.emit(player)
 		return
 
 	if can_teammate_pass_ball() and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.Action.PASS):

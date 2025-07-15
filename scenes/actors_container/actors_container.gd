@@ -21,6 +21,7 @@ var time_since_last_cache_refresh := 0.0
 
 
 func _ready() -> void:
+	EventBus.swap_soul_requested.connect(_on_player_swap_soul_requested.bind())
 	squad_home = spawn_players(team_home, goal_home)
 	spawns.scale.x = -1
 	squad_away = spawn_players(team_away, goal_away)
@@ -61,7 +62,7 @@ func spawn_players(country: String, own_goal: Goal) -> Array[Player]:
 func spawn_player(player_pos: Vector2, own_goal: Goal, target_goal: Goal, player_data: PlayerResource, country: String) -> Player:
 	var player := PLAYER_SCENE.instantiate()
 	player.initialize(player_pos, ball, own_goal, target_goal, player_data, country)
-	player.swap_soul_requested.connect(_on_player_swap_soul_requested.bind())
+	
 	return player
 
 

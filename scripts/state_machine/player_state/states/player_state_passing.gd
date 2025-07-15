@@ -20,13 +20,20 @@ func find_teammate_in_view() -> Player:
 
 func on_animation_finished() -> void:
 	var pass_target := state_data.pass_target
-	# 没有来自队友的传球请求时，寻找视野内的队友
+
+	# 如果没有预设目标，查找视野内最近的队友
 	if pass_target == null:
 		pass_target = find_teammate_in_view()
-	# 没有找到队友时，允许球向前移动一段距离
-	if pass_target == null:
-		ball.pass_to(ball.position + player.heading * player.speed)
-	# 传给队友时，需要考虑队友的速度
+
+	# 确定传球目标位置
+	var target_position: Vector2
+	if pass_target:
+		# 传给队友时，预测队友移动位置
+		target_position = pass_target.position + pass_target.velocity
 	else:
-		ball.pass_to(pass_target.position + pass_target.velocity)
+		# 无目标时，向前传球一段距离
+		target_position = ball.position + player.heading * player.speed * 1.5
+
+	# 执行传球
+	ball.pass_to(target_position)
 	transition_to_state(Player.State.MOVING)

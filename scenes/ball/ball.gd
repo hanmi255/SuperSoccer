@@ -26,6 +26,7 @@ var v_velocity := 0.0
 
 
 func _ready() -> void:
+	EventBus.ball_state_transition_requested.connect(switch_state.bind())
 	switch_state(Ball.State.FREEFORM)
 
 
@@ -41,9 +42,7 @@ func switch_state(state: Ball.State, state_data: BallStateData = BallStateData.n
 		current_state.queue_free()
 
 	current_state = state_factory.get_fresh_state(state)
-
 	current_state.setup(self, ball_sprite, carrier, state_data, animation_player, player_detection_area)
-	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "BallStateMachine: " + str(state)
 
 	call_deferred("add_child", current_state)
