@@ -23,8 +23,10 @@ var time_since_last_cache_refresh := 0.0
 func _ready() -> void:
 	EventBus.swap_soul_requested.connect(_on_player_swap_soul_requested.bind())
 	squad_home = spawn_players(team_home, goal_home)
+	goal_home.initialize(team_home)
 	spawns.scale.x = -1
 	squad_away = spawn_players(team_away, goal_away)
+	goal_away.initialize(team_away)
 
 	time_since_last_cache_refresh = Time.get_ticks_msec()
 

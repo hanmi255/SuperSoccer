@@ -5,8 +5,16 @@ extends Node2D
 @onready var targets: Node2D = $Targets
 @onready var scoring_area: Area2D = $ScoringArea
 
+var country := ""
+
+
 func _ready() -> void:
 	back_net_area.body_entered.connect(_on_back_net_area_body_entered.bind())
+	scoring_area.body_entered.connect(_on_scoring_area_body_entered.bind())
+
+
+func initialize(context_country: String) -> void:
+	country = context_country
 
 
 func get_random_target_position() -> Vector2:
@@ -31,3 +39,7 @@ func get_scoring_area() -> Area2D:
 
 func _on_back_net_area_body_entered(ball: Ball) -> void:
 	ball.stop()
+
+
+func _on_scoring_area_body_entered(_ball: Ball) -> void:
+	EventBus.team_scored.emit(country)

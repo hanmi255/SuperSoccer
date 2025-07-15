@@ -5,7 +5,7 @@ extends CharacterBody2D
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
@@ -61,6 +61,7 @@ func _ready() -> void:
 	tackle_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
 	permanent_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
 	spawn_position = position
+	EventBus.team_scored.connect(_on_team_scored.bind())
 
 
 func _process(delta: float) -> void:
@@ -190,6 +191,13 @@ func _on_state_transition_requested(target_player: Player, new_state: Player.Sta
 func _on_hurt_player(body: Node2D) -> void:
 	if body != self and body.country != country and body == ball.carrier:
 		body._get_hurt(position.direction_to(body.position))
+
+
+func _on_team_scored(country_scored_for: String) -> void:
+	if country_scored_for == country:
+		switch_state(Player.State.MOURNING)
+	else:
+		switch_state(Player.State.CELEBRATING)
 
 
 func on_animation_finished() -> void:
