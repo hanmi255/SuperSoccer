@@ -1,7 +1,6 @@
 class_name BallStateBase
 extends Node
 
-signal state_transition_requested(new_state: Ball.State, data: BallStateData)
 
 const GRAVITY := 10.0 # 重力加速度
 
@@ -23,7 +22,7 @@ func setup(context_ball: Ball, context_ball_sprite: Sprite2D, context_carrier: P
 
 
 func transition_to_state(new_state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
-	state_transition_requested.emit(new_state, data)
+	EventBus.ball_state_transition_requested.emit(new_state, data)
 
 
 func set_ball_animation_from_velocity() -> void:

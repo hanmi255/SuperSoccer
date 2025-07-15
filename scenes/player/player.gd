@@ -1,7 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-signal swap_soul_requested(requester: Player)
 
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
@@ -54,6 +53,7 @@ var weight_on_duty_steering := 0.0
 func _ready() -> void:
 	set_control_scheme_sprite()
 	_setup_ai_behavior()
+	EventBus.player_state_transition_requested.connect(_on_state_transition_requested)
 	switch_state(Player.State.MOVING)
 	_set_shader_properties()
 	permanent_damage_emitter_area.monitoring = role == Role.GOALIE
@@ -89,9 +89,7 @@ func switch_state(state: Player.State, state_data: PlayerStateData = PlayerState
 		current_state.queue_free()
 
 	current_state = state_factory.get_fresh_state(state)
-
 	current_state.setup(self, ball, state_data, animation_player, teammate_detection_area, opponent_detection_area, ball_detection_area, own_goal, target_goal, tackle_damage_emitter_area, current_ai_behavior)
-	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(state)
 
 	call_deferred("add_child", current_state)
@@ -182,6 +180,11 @@ func _setup_ai_behavior() -> void:
 	current_ai_behavior.setup(self, ball, opponent_detection_area, teammate_detection_area)
 	current_ai_behavior.name = "AI Behavior"
 	add_child(current_ai_behavior)
+
+
+func _on_state_transition_requested(target_player: Player, new_state: Player.State, data: PlayerStateData) -> void:
+	if target_player == self:
+		switch_state(new_state, data)
 
 
 func _on_hurt_player(body: Node2D) -> void:

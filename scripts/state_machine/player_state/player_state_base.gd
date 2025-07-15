@@ -1,7 +1,6 @@
 class_name PlayerStateBase
 extends Node
 
-signal state_transition_requested(new_state: Player.State, data: PlayerStateData)
 
 var ai_behavior: AIBehaviorBase = null
 var animation_player: AnimationPlayer = null
@@ -31,7 +30,7 @@ func setup(context_player: Player, context_ball: Ball, context_state_data: Playe
 
 
 func transition_to_state(new_state: Player.State, data: PlayerStateData = PlayerStateData.new()) -> void:
-	state_transition_requested.emit(new_state, data)
+	EventBus.player_state_transition_requested.emit(player, new_state, data)
 
 
 func can_carry_ball() -> bool:

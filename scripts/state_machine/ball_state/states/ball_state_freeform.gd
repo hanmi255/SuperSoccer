@@ -32,4 +32,4 @@ func _on_player_entered(body: Player) -> void:
 
 
 func can_air_interact() -> bool:
-	return true
+	return ball.height > 0
