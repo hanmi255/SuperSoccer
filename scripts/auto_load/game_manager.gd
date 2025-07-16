@@ -1,6 +1,7 @@
 extends Node
 
-const GAME_DURATION = 2 * 60
+const IMPACT_PAUSE_DURATION := 100
+const GAME_DURATION := 2 * 60
 
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAME_OVER}
 
@@ -9,13 +10,24 @@ var current_state: GameStateBase = null
 var player_setup: Array[String] = ["FRANCE", ""]
 var score: Array[int] = [0, 0]
 var state_factory := GameStateFactory.new()
+var time_since_paused := 0.0
 var time_left: float
+
+
+func _init() -> void:
+	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 
 
 func _ready() -> void:
 	time_left = GAME_DURATION
 	EventBus.game_state_transition_requested.connect(switch_state.bind())
+	EventBus.impact_received.connect(_on_impact_received.bind())
 	switch_state(State.RESET)
+
+
+func _process(_delta: float) -> void:
+	if get_tree().paused and Time.get_ticks_msec() - time_since_paused > IMPACT_PAUSE_DURATION:
+		get_tree().paused = false
 
 
 func switch_state(state: State, state_data: GameStateData = GameStateData.new()) -> void:
@@ -66,3 +78,9 @@ func get_away_team() -> String:
 func get_winner() -> String:
 	assert(not is_game_tied())
 	return countries[0] if score[0] > score[1] else countries[1]
+
+
+func _on_impact_received(_impact_pos: Vector2, is_high_impact: bool) -> void:
+	if is_high_impact:
+		time_since_paused = Time.get_ticks_msec()
+		get_tree().paused = true

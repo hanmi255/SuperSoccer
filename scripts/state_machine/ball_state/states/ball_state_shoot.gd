@@ -14,6 +14,8 @@ func _enter_tree() -> void:
 	ball_sprite.scale.y = SHOOT_SPRITE_SCALE
 	ball.height = SHOOT_HEIGHT
 	time_finish_shoot = Time.get_ticks_msec() + SHOOT_DURATION
+	shoot_particles.emitting = true
+	EventBus.impact_received.emit(ball.position, true)
 
 
 func _process(delta: float) -> void:
@@ -25,3 +27,4 @@ func _process(delta: float) -> void:
 
 func _exit_tree() -> void:
 	ball_sprite.scale.y = 1.0
+	shoot_particles.emitting = false

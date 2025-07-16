@@ -1,8 +1,11 @@
 class_name PlayerStateCelebrating
 extends PlayerStateBase
 
-const AIR_FRICTION := 35.0
+const AIR_FRICTION := 60.0
 const CELEBRATE_V_VELOCITY := 2.0
+
+var initial_delay := randi_range(200, 500)
+var time_since_celebrating := 0.0
 
 
 func _enter_tree() -> void:
@@ -11,7 +14,7 @@ func _enter_tree() -> void:
 
 
 func _process(delta: float) -> void:
-	if player.height <= 0:
+	if player.height <= 0 and Time.get_ticks_msec() - time_since_celebrating > initial_delay:
 		_celebrate()
 
 	player.velocity = player.velocity.move_toward(Vector2.ZERO, AIR_FRICTION * delta)

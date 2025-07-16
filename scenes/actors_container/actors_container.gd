@@ -2,6 +2,7 @@ class_name ActorsContainer
 extends Node2D
 
 const PLAYER_SCENE := preload("res://scenes/player/player.tscn") # 球员场景
+const SPARK_SCENE := preload("res://scenes/spark/spark.tscn") # 火花场景
 const WEIGHT_CACHE_DURATION := 200.0 # 权重缓存时间
 const MAX_WEIGHT_FACTOR := 10.0 # 权重计算的最大因子
 const WEIGHT_EASE_CURVE := 0.1 # 权重曲线参数，用于控制权重随距离变化的平滑度
@@ -24,6 +25,7 @@ var time_since_last_cache_refresh := 0.0
 
 func _init() -> void:
 	EventBus.team_reset.connect(_on_team_reset.bind())
+	EventBus.impact_received.connect(_on_impact_received.bind())
 
 
 func _ready() -> void:
@@ -154,3 +156,9 @@ func _on_player_swap_soul_requested(requester: Player) -> void:
 
 func _on_team_reset() -> void:
 	is_checking_for_kickoff_readiness = true
+
+
+func _on_impact_received(impact_pos: Vector2, _is_high_impact: bool) -> void:
+	var spark := SPARK_SCENE.instantiate()
+	spark.position = impact_pos
+	add_child(spark)

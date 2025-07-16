@@ -25,6 +25,8 @@ const IDLE_SPEED_THRESHOLD := 1.0 # 静止动画阈值
 @export var own_goal: Goal = null
 @export var target_goal: Goal = null
 
+@onready var root_particles: Node2D = $RootParticles
+@onready var run_particles: GPUParticles2D = %RunParticles
 @onready var skin: Sprite2D = $Skin
 @onready var goalie_hands_collision: CollisionShape2D = %GoalieHandsCollision
 @onready var control_sprite: Sprite2D = %ControlSprite
@@ -74,7 +76,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_flip_skin()
-	_set_control_scheme_sprite_visibility()
+	_set_sprite_visibility()
 	_apply_gravity(delta)
 	move_and_slide()
 
@@ -167,18 +169,21 @@ func _flip_skin() -> void:
 		skin.flip_h = true
 		opponent_detection_area.scale.x = -1
 		tackle_damage_emitter_area.scale.x = -1
+		root_particles.scale.x = -1
 	elif heading == Vector2.RIGHT:
 		skin.flip_h = false
 		opponent_detection_area.scale.x = 1
 		tackle_damage_emitter_area.scale.x = 1
+		root_particles.scale.x = 1
 
 
 func _set_control_scheme_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_SPRITE_MAP[control_scheme]
 
 
-func _set_control_scheme_sprite_visibility() -> void:
+func _set_sprite_visibility() -> void:
 	control_sprite.visible = is_carrying_ball() or control_scheme != ControlScheme.CPU
+	run_particles.emitting = velocity.length() == speed
 
 
 func _set_shader_properties() -> void:

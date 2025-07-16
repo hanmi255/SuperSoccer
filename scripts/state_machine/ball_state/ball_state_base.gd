@@ -9,16 +9,18 @@ var ball: Ball = null
 var ball_sprite: Sprite2D = null
 var carrier: Player = null
 var player_detection_area: Area2D = null
+var shoot_particles: GPUParticles2D = null
 var state_data := BallStateData.new()
 
 
-func setup(context_ball: Ball, context_ball_sprite: Sprite2D, context_carrier: Player, context_state_data: BallStateData, context_animation_player: AnimationPlayer, context_player_detection_area: Area2D) -> void:
+func setup(context_ball: Ball, context_ball_sprite: Sprite2D, context_carrier: Player, context_state_data: BallStateData, context_animation_player: AnimationPlayer, context_player_detection_area: Area2D, context_shoot_particles: GPUParticles2D) -> void:
 	ball = context_ball
 	ball_sprite = context_ball_sprite
 	carrier = context_carrier
 	state_data = context_state_data
 	animation_player = context_animation_player
 	player_detection_area = context_player_detection_area
+	shoot_particles = context_shoot_particles
 
 
 func transition_to_state(new_state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
