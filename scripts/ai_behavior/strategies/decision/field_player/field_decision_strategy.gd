@@ -38,7 +38,7 @@ func _handle_player_possession() -> void:
 
 
 func _execute_shoot() -> void:
-	ai_behavior.face_towards_target_goal()
+	player.face_towards_target_goal()
 	var shoot_direction := player.position.direction_to(player.target_goal.get_random_target_position())
 	var state_data = PlayerStateData.build().set_shoot_direction(shoot_direction).set_shoot_power(player.power)
 	player.switch_state(Player.State.SHOOTING, state_data)

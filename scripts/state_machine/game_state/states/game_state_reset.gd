@@ -3,4 +3,9 @@ extends GameStateBase
 
 
 func _enter_tree() -> void:
-	print("GameStateReset::_enter_tree")
+	EventBus.team_reset.emit()
+	EventBus.kickoff_ready.connect(_on_kickoff_ready.bind())
+
+
+func _on_kickoff_ready() -> void:
+	transition_state(GameManager.State.KICKOFF)

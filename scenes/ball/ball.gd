@@ -20,6 +20,7 @@ const TUMBLE_V_VELOCITY := 3.0 # 滚球速度
 var carrier: Player = null
 var current_state: BallStateBase = null
 var height := 0.0
+var spawn_position := Vector2.ZERO
 var state_factory := BallStateFactory.new()
 var velocity := Vector2.ZERO
 var v_velocity := 0.0
@@ -28,6 +29,8 @@ var v_velocity := 0.0
 func _ready() -> void:
 	EventBus.ball_state_transition_requested.connect(switch_state.bind())
 	switch_state(Ball.State.FREEFORM)
+	spawn_position = position
+	EventBus.team_reset.connect(_on_team_reset.bind())
 
 
 func _process(_delta: float) -> void:
@@ -95,3 +98,12 @@ func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
 		return false
 
 	return scoring_ray_cast.get_collider() == scoring_area
+
+
+func _on_team_reset() -> void:
+	position = spawn_position
+	height = 0.0
+	v_velocity = 0.0
+	velocity = Vector2.ZERO
+	carrier = null
+	switch_state(Ball.State.FREEFORM)

@@ -41,5 +41,9 @@ func can_pass() -> bool:
 	return false
 
 
+func is_ready_for_kickoff() -> bool:
+	return false
+
+
 func on_animation_finished() -> void:
 	pass

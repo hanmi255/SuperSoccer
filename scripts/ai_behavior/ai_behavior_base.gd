@@ -63,12 +63,6 @@ func is_ball_carried_by_teammate() -> bool:
 	return ball.carrier != null and ball.carrier != player and ball.carrier.country == player.country
 
 
-# 调整球员朝向目标球门
-func face_towards_target_goal() -> void:
-	if not player.is_facing_target_goal():
-		player.heading = player.heading * -1
-
-
 # 判断是否有对手靠近
 func has_opponents_nearby() -> bool:
 	var players := opponent_detection_area.get_overlapping_bodies()

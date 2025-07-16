@@ -39,6 +39,15 @@ position = Vector2(-25, -80)
 [node name="ForwardPosition2" type="Marker2D" parent="Spawns"]
 position = Vector2(-25, 80)
 
+[node name="KickOffs" type="Node2D" parent="."]
+position = Vector2(425, 180)
+
+[node name="KickOffPos" type="Marker2D" parent="KickOffs"]
+position = Vector2(-10, 0)
+
+[node name="KickOffPos2" type="Marker2D" parent="KickOffs"]
+position = Vector2(-5, 30)
+
 [node name="PitchObjects" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -102,7 +111,7 @@ polygon = PackedVector2Array(14, -1, 28, -1, 14, 115, 0, 115)
 y_sort_enabled = true
 
 [node name="Ball" parent="." instance=ExtResource("7_dexk4")]
-position = Vector2(404, 106)
+position = Vector2(425, 180)
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
 limit_left = 0

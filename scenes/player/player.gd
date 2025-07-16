@@ -5,7 +5,7 @@ extends CharacterBody2D
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENDER, MIDFIELDER, FORWARD}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING, RESETTING}
 
 const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.CPU: preload("res://assets/sprites/props/cpu.png"),
@@ -42,6 +42,7 @@ var current_state: PlayerStateBase = null
 var full_name := ""
 var heading := Vector2.RIGHT
 var height := 0.0
+var kickoff_position := Vector2.ZERO
 var role := Player.Role.DEFENDER
 var skin_color := Player.SkinColor.LIGHT
 var spawn_position := Vector2.ZERO
@@ -71,8 +72,9 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 
-func initialize(context_player_pos: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_country: String) -> void:
+func initialize(context_player_pos: Vector2, context_kickoff_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_country: String) -> void:
 	position = context_player_pos
+	kickoff_position = context_kickoff_position
 	ball = context_ball
 	own_goal = context_own_goal
 	target_goal = context_target_goal
@@ -116,6 +118,11 @@ func set_heading() -> void:
 		heading = Vector2.RIGHT if velocity.x > 0 else Vector2.LEFT
 
 
+func face_towards_target_goal() -> void:
+	if not is_facing_target_goal():
+		heading = heading * -1
+
+
 func can_carry_ball() -> bool:
 	return current_state != null and current_state.can_carry_ball()
 
@@ -127,6 +134,10 @@ func is_carrying_ball() -> bool:
 func is_facing_target_goal() -> bool:
 	var direction_to_target_goal := position.direction_to(target_goal.position)
 	return heading.dot(direction_to_target_goal) > 0
+
+
+func is_ready_for_kickoff() -> bool:
+	return current_state != null and current_state.is_ready_for_kickoff()
 
 
 func control_ball() -> void:
