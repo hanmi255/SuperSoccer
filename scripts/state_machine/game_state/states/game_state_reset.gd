@@ -8,4 +8,4 @@ func _enter_tree() -> void:
 
 
 func _on_kickoff_ready() -> void:
-	transition_state(GameManager.State.KICKOFF)
+	transition_state(GameManager.State.KICKOFF, state_data)

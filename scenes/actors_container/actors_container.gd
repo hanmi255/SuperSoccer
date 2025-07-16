@@ -22,6 +22,10 @@ var team_away := GameManager.get_away_team()
 var time_since_last_cache_refresh := 0.0
 
 
+func _init() -> void:
+	EventBus.team_reset.connect(_on_team_reset.bind())
+
+
 func _ready() -> void:
 	EventBus.swap_soul_requested.connect(_on_player_swap_soul_requested.bind())
 	squad_home = spawn_players(team_home, goal_home)
@@ -33,12 +37,7 @@ func _ready() -> void:
 
 	time_since_last_cache_refresh = Time.get_ticks_msec()
 
-	# 添加可控制测试球员
-	var player_test: Player = players_container.get_child(4)
-	player_test.control_scheme = Player.ControlScheme.P1
-	player_test.set_control_scheme_sprite()
-
-	EventBus.team_reset.connect(_on_team_reset.bind())
+	_setup_control_schemes()
 
 
 func _process(_delta: float) -> void:
@@ -104,8 +103,35 @@ func check_for_kickoff_readiness() -> void:
 			if not player.is_ready_for_kickoff():
 				return
 
+	_setup_control_schemes()
 	is_checking_for_kickoff_readiness = false
 	EventBus.kickoff_ready.emit()
+
+
+func _setup_control_schemes() -> void:
+	var p1_country := GameManager.player_setup[0]
+	var p1_squad := _get_squad_by_country(p1_country)
+
+	if GameManager.is_coop():
+		# 合作模式：两个玩家控制同一队伍的不同球员
+		p1_squad[4].set_control_scheme(Player.ControlScheme.P1)
+		p1_squad[5].set_control_scheme(Player.ControlScheme.P2)
+	elif GameManager.is_single_player():
+		# 单人模式：只有一个玩家控制
+		p1_squad[5].set_control_scheme(Player.ControlScheme.P1)
+	else:
+		# 对战模式：两个玩家分别控制不同队伍
+		var p2_squad := _get_opposite_squad(p1_squad)
+		p1_squad[5].set_control_scheme(Player.ControlScheme.P1)
+		p2_squad[5].set_control_scheme(Player.ControlScheme.P2)
+
+
+func _get_squad_by_country(country: String) -> Array[Player]:
+	return squad_home if squad_home[0].country == country else squad_away
+
+
+func _get_opposite_squad(squad: Array[Player]) -> Array[Player]:
+	return squad_away if squad == squad_home else squad_home
 
 
 func _on_player_swap_soul_requested(requester: Player) -> void:
@@ -122,10 +148,8 @@ func _on_player_swap_soul_requested(requester: Player) -> void:
 	# 如果目标球员距离球更近，则交换灵魂
 	if target_player.position.distance_squared_to(ball.position) < requester.position.distance_squared_to(ball.position):
 		var player_control_scheme := requester.control_scheme
-		requester.control_scheme = target_player.control_scheme
-		requester.set_control_scheme_sprite()
-		target_player.control_scheme = player_control_scheme
-		target_player.set_control_scheme_sprite()
+		requester.set_control_scheme(target_player.control_scheme)
+		target_player.set_control_scheme(player_control_scheme)
 
 
 func _on_team_reset() -> void:

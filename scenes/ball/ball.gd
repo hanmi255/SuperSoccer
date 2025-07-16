@@ -5,6 +5,7 @@ enum State {CARRIED, FREEFORM, SHOOT}
 
 const BOUNCINESS := 0.8 # 球弹跳系数
 const HIGH_PASS_DISTANCE_THRESHOLD := 130.0 # 高空传球距离阈值
+const KICKOFF_PASS_DISTANCE := 30.0 # 开球传球距离
 const PASS_LOCK_DURATION := 500.0 # 传球锁定时间
 const TUMBLE_LOCK_DURATION := 200.0 # 滚球锁定时间
 const TUMBLE_V_VELOCITY := 3.0 # 滚球速度
@@ -31,7 +32,7 @@ func _ready() -> void:
 	switch_state(Ball.State.FREEFORM)
 	spawn_position = position
 	EventBus.team_reset.connect(_on_team_reset.bind())
-
+	EventBus.kickoff_started.connect(_on_kickoff_started.bind())
 
 func _process(_delta: float) -> void:
 	ball_sprite.position = Vector2.UP * height
@@ -64,7 +65,7 @@ func tumble(tumble_velocity: Vector2) -> void:
 	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(TUMBLE_LOCK_DURATION))
 
 
-func pass_to(destination: Vector2) -> void:
+func pass_to(destination: Vector2, lock_duration: float = PASS_LOCK_DURATION) -> void:
 	var direction := position.direction_to(destination)
 	var distance := position.distance_to(destination)
 	var h_velocity := sqrt(2 * distance * friction_ground)
@@ -78,7 +79,7 @@ func pass_to(destination: Vector2) -> void:
 		v_velocity = BallStateBase.GRAVITY * distance / (1.85 * h_velocity)
 
 	carrier = null
-	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(PASS_LOCK_DURATION))
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(lock_duration))
 
 
 func stop() -> void:
@@ -107,3 +108,7 @@ func _on_team_reset() -> void:
 	velocity = Vector2.ZERO
 	carrier = null
 	switch_state(Ball.State.FREEFORM)
+
+
+func _on_kickoff_started() -> void:
+	pass_to(spawn_position + Vector2.DOWN * KICKOFF_PASS_DISTANCE, 0)

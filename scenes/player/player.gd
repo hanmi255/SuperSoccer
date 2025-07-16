@@ -52,10 +52,9 @@ var weight_on_duty_steering := 0.0
 
 
 func _ready() -> void:
-	set_control_scheme_sprite()
+	_set_control_scheme_sprite()
 	_setup_ai_behavior()
 	EventBus.player_state_transition_requested.connect(_on_state_transition_requested)
-	switch_state(Player.State.MOVING)
 	_set_shader_properties()
 	permanent_damage_emitter_area.monitoring = role == Role.GOALIE
 	goalie_hands_collision.disabled = role != Role.GOALIE
@@ -63,6 +62,9 @@ func _ready() -> void:
 	permanent_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
 	spawn_position = position
 	EventBus.team_scored.connect(_on_team_scored.bind())
+
+	var initial_pos := kickoff_position if country == GameManager.countries[0] else spawn_position
+	switch_state(Player.State.RESETTING, PlayerStateData.build().set_reset_position(initial_pos))
 
 
 func _process(delta: float) -> void:
@@ -118,6 +120,11 @@ func set_heading() -> void:
 		heading = Vector2.RIGHT if velocity.x > 0 else Vector2.LEFT
 
 
+func set_control_scheme(scheme: ControlScheme) -> void:
+	control_scheme = scheme
+	_set_control_scheme_sprite()
+
+
 func face_towards_target_goal() -> void:
 	if not is_facing_target_goal():
 		heading = heading * -1
@@ -161,8 +168,12 @@ func _flip_skin() -> void:
 		tackle_damage_emitter_area.scale.x = 1
 
 
-func set_control_scheme_sprite() -> void:
+func _set_control_scheme_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_SPRITE_MAP[control_scheme]
+
+
+func _set_control_scheme_sprite_visibility() -> void:
+	control_sprite.visible = is_carrying_ball() or control_scheme != ControlScheme.CPU
 
 
 func _set_shader_properties() -> void:
@@ -177,10 +188,6 @@ func _apply_gravity(delta: float) -> void:
 		height = max(0, height)
 
 	skin.position = Vector2.UP * height
-
-
-func _set_control_scheme_sprite_visibility() -> void:
-	control_sprite.visible = is_carrying_ball() or control_scheme != ControlScheme.CPU
 
 
 func _get_hurt(hurt_direction: Vector2) -> void:
