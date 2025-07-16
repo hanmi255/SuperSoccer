@@ -3,6 +3,7 @@ extends Node
 signal ball_possessed(player_name: String)
 signal ball_released
 signal ball_state_transition_requested(new_state: Ball.State, data: BallStateData)
+signal game_over(winner: String)
 signal game_state_transition_requested(new_state: GameManager.State, data: GameStateData)
 signal kickoff_ready
 signal kickoff_started

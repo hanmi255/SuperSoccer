@@ -56,12 +56,17 @@ func _ready() -> void:
 	_setup_ai_behavior()
 	EventBus.player_state_transition_requested.connect(_on_state_transition_requested)
 	_set_shader_properties()
+
 	permanent_damage_emitter_area.monitoring = role == Role.GOALIE
 	goalie_hands_collision.disabled = role != Role.GOALIE
+
 	tackle_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
 	permanent_damage_emitter_area.body_entered.connect(_on_hurt_player.bind())
+
 	spawn_position = position
+
 	EventBus.team_scored.connect(_on_team_scored.bind())
+	EventBus.game_over.connect(_on_game_over.bind())
 
 	var initial_pos := kickoff_position if country == GameManager.countries[0] else spawn_position
 	switch_state(Player.State.RESETTING, PlayerStateData.build().set_reset_position(initial_pos))
@@ -216,6 +221,13 @@ func _on_team_scored(country_scored_for: String) -> void:
 		switch_state(Player.State.MOURNING)
 	else:
 		switch_state(Player.State.CELEBRATING)
+
+
+func _on_game_over(winner: String) -> void:
+	if winner == country:
+		switch_state(Player.State.CELEBRATING)
+	else:
+		switch_state(Player.State.MOURNING)
 
 
 func on_animation_finished() -> void:

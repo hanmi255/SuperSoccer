@@ -3,4 +3,5 @@ extends GameStateBase
 
 
 func _enter_tree() -> void:
-	print("Game Over!")
+	var winner := manager.get_winner()
+	EventBus.game_over.emit(winner)

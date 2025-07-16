@@ -7,19 +7,19 @@ func _enter_tree() -> void:
 
 
 func _process(delta: float) -> void:
-	if manager.time_left <= 0:
+	if manager.is_time_up():
 		return
 
 	manager.time_left -= delta
 
-	if manager.time_left <= 0:
+	if manager.is_time_up():
 		manager.time_left = 0
 
-		if manager.score[0] == manager.score[1]:
+		if manager.is_game_tied():
 			transition_state(GameManager.State.OVERTIME)
 		else:
 			transition_state(GameManager.State.GAME_OVER)
 
 
 func _on_team_scored(country_scored_for: String) -> void:
-	transition_state(GameManager.State.SCORED,GameStateData.build().set_country_scored_for(country_scored_for))
+	transition_state(GameManager.State.SCORED, GameStateData.build().set_country_scored_for(country_scored_for))

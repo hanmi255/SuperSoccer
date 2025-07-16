@@ -26,10 +26,14 @@ func on_animation_finished() -> void:
 		pass_target = find_teammate_in_view()
 
 	# 确定传球目标位置
-	var target_position: Vector2
+	var target_position := Vector2.ZERO
 	if pass_target:
 		# 传给队友时，预测队友移动位置
-		target_position = pass_target.position + pass_target.velocity
+		var direction := player.position.direction_to(pass_target.position)
+		if sign(player.heading.x) != sign(direction.x):
+			player.heading *= -1
+
+		target_position = pass_target.position + pass_target.velocity * 0.8
 	else:
 		# 无目标时，向前传球一段距离
 		target_position = ball.position + player.heading * player.speed * 1.5
