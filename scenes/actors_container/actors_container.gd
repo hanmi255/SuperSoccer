@@ -9,14 +9,14 @@ const WEIGHT_EASE_CURVE := 0.1 # 权重曲线参数，用于控制权重随距�
 @export var ball: Ball
 @export var goal_home: Goal
 @export var goal_away: Goal
-@export var team_home: String
-@export var team_away: String
 
 @onready var spawns: Node2D = $Spawns
 @onready var players_container: Node2D = $PlayersContainer
 
 var squad_home: Array[Player] = []
 var squad_away: Array[Player] = []
+var team_home:=GameManager.get_home_team()
+var team_away:=GameManager.get_away_team()
 var time_since_last_cache_refresh := 0.0
 
 

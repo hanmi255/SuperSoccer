@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 KeyUtils="*res://scripts/auto_load/key_utils.gd"
 DataLoader="*res://scripts/auto_load/data_loader.gd"
 EventBus="*res://scripts/auto_load/event_bus.gd"
+GameManager="*res://scripts/auto_load/game_manager.gd"
 
 [display]
 
