@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dg4myorfk3tn7"
-path="res://.godot/imported/Daydream.ttf-3fd8134f8d87aa6a46d937c9710531bd.fontdata"
+uid="uid://ce33rtc1iahlm"
+path="res://.godot/imported/Pixeled.ttf-e8bbf35245fcf80d16d4c25fafd33f1f.fontdata"
 
 [deps]
 
-source_file="res://assets/audio/fonts/Daydream.ttf"
-dest_files=["res://.godot/imported/Daydream.ttf-3fd8134f8d87aa6a46d937c9710531bd.fontdata"]
+source_file="res://assets/fonts/Pixeled.ttf"
+dest_files=["res://.godot/imported/Pixeled.ttf-e8bbf35245fcf80d16d4c25fafd33f1f.fontdata"]
 
 [params]
 

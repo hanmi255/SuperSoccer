@@ -10,6 +10,7 @@ var dribble_time := 0.0
 
 func _enter_tree() -> void:
 	assert(carrier != null)
+	EventBus.ball_possessed.emit(carrier.full_name)
 
 
 func _process(delta: float) -> void:
@@ -42,3 +43,7 @@ func _process(delta: float) -> void:
 		carrier.heading.x * OFFSET_FROM_CARRIER.x + offset.x,
 		OFFSET_FROM_CARRIER.y + offset.y
 	)
+
+
+func _exit_tree() -> void:
+	EventBus.ball_released.emit()

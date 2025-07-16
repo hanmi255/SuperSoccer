@@ -1,6 +1,6 @@
 ## 按键输入工具
 ## 管理玩家输入控制映射并提供简化的输入检测接口
-extends Node
+class_name KeyUtils
 
 ## 定义游戏中的基本动作类型
 enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS, SWAP_SOUL}
@@ -34,7 +34,7 @@ const ACTIONS_MAP: Dictionary = {
 ##   control_scheme - 玩家的控制方案(P1或P2)
 ## 返回:
 ##   基于当前按键输入的标准化二维向量
-func get_input_vector(control_scheme: Player.ControlScheme) -> Vector2:
+static func get_input_vector(control_scheme: Player.ControlScheme) -> Vector2:
 	var map: Dictionary = ACTIONS_MAP[control_scheme]
 	return Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
 
@@ -45,7 +45,7 @@ func get_input_vector(control_scheme: Player.ControlScheme) -> Vector2:
 ##   action - 要检查的动作类型
 ## 返回:
 ##   如果动作当前被按下则返回true
-func is_action_pressed(control_scheme: Player.ControlScheme, action: Action) -> bool:
+static func is_action_pressed(control_scheme: Player.ControlScheme, action: Action) -> bool:
 	return Input.is_action_pressed(ACTIONS_MAP[control_scheme][action])
 
 
@@ -55,7 +55,7 @@ func is_action_pressed(control_scheme: Player.ControlScheme, action: Action) -> 
 ##   action - 要检查的动作类型
 ## 返回:
 ##   如果动作刚被按下则返回true
-func is_action_just_pressed(control_scheme: Player.ControlScheme, action: Action) -> bool:
+static func is_action_just_pressed(control_scheme: Player.ControlScheme, action: Action) -> bool:
 	return Input.is_action_just_pressed(ACTIONS_MAP[control_scheme][action])
 
 
@@ -65,5 +65,5 @@ func is_action_just_pressed(control_scheme: Player.ControlScheme, action: Action
 ##   action - 要检查的动作类型
 ## 返回:
 ##   如果动作刚被释放则返回true
-func is_action_just_released(control_scheme: Player.ControlScheme, action: Action) -> bool:
+static func is_action_just_released(control_scheme: Player.ControlScheme, action: Action) -> bool:
 	return Input.is_action_just_released(ACTIONS_MAP[control_scheme][action])

@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-KeyUtils="*res://scripts/auto_load/key_utils.gd"
 DataLoader="*res://scripts/auto_load/data_loader.gd"
 EventBus="*res://scripts/auto_load/event_bus.gd"
 GameManager="*res://scripts/auto_load/game_manager.gd"
@@ -34,6 +33,11 @@ window/stretch/scale_mode="integer"
 [dotnet]
 
 project/assembly_name="SuperSoccer"
+
+[gui]
+
+theme/custom="uid://3060ixdx2bgs"
+theme/custom_font="uid://ce33rtc1iahlm"
 
 [input]
 
