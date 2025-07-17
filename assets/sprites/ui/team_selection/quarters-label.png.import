@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blsnjjgxqg3t3"
-path="res://.godot/imported/1-player.png-b92c019ac0851665dfbe6c705d5a9849.ctex"
+uid="uid://c3sjfwj0fdcb4"
+path="res://.godot/imported/quarters-label.png-9aed9501ced261d4c0bcef177f267d90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/mainmenu/1-player.png"
-dest_files=["res://.godot/imported/1-player.png-b92c019ac0851665dfbe6c705d5a9849.ctex"]
+source_file="res://assets/sprites/ui/team_selection/quarters-label.png"
+dest_files=["res://.godot/imported/quarters-label.png-9aed9501ced261d4c0bcef177f267d90.ctex"]
 
 [params]
 

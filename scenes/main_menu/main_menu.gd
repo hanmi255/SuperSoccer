@@ -2,8 +2,8 @@ class_name MainMenu
 extends Control
 
 const MENU_TEXTURES := [
-	[preload("res://assets/sprites/ui/mainmenu/1-player.png"), preload("res://assets/sprites/ui/mainmenu/1-player-selected.png")],
-	[preload("res://assets/sprites/ui/mainmenu/2-players.png"), preload("res://assets/sprites/ui/mainmenu/2-players-selected.png")]
+	[preload("res://assets/sprites/ui/main_menu/1-player.png"), preload("res://assets/sprites/ui/main_menu/1-player-selected.png")],
+	[preload("res://assets/sprites/ui/main_menu/2-players.png"), preload("res://assets/sprites/ui/main_menu/2-players-selected.png")]
 ]
 
 @onready var selectable_textures: Array[TextureRect] = [%SinglePlayerTexture, %TwoPlayerTexture]

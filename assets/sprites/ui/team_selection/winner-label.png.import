@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3sjfwj0fdcb4"
-path="res://.godot/imported/quarters-label.png-b682bdfc544ee7a12ad7af792e6612b7.ctex"
+uid="uid://bubvtqvfivwwa"
+path="res://.godot/imported/winner-label.png-552b2d18871d62396a2950e48688c652.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/teamselection/quarters-label.png"
-dest_files=["res://.godot/imported/quarters-label.png-b682bdfc544ee7a12ad7af792e6612b7.ctex"]
+source_file="res://assets/sprites/ui/team_selection/winner-label.png"
+dest_files=["res://.godot/imported/winner-label.png-552b2d18871d62396a2950e48688c652.ctex"]
 
 [params]
 

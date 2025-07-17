@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccqawetwt2kqp"
-path="res://.godot/imported/title.png-8b524368d8f4dece1a0eb37fbfde7400.ctex"
+uid="uid://br7sdvxtt1k8u"
+path="res://.godot/imported/team-selection-background.png-d17d4a1b9be659846ae646946c64375b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/mainmenu/title.png"
-dest_files=["res://.godot/imported/title.png-8b524368d8f4dece1a0eb37fbfde7400.ctex"]
+source_file="res://assets/sprites/ui/team_selection/team-selection-background.png"
+dest_files=["res://.godot/imported/team-selection-background.png-d17d4a1b9be659846ae646946c64375b.ctex"]
 
 [params]
 

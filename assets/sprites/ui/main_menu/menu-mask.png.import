@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpahmm6y64x7n"
-path="res://.godot/imported/finals-label.png-8eb3b280975e73b5080db24eb2a8dc98.ctex"
+uid="uid://bx61av05otg5n"
+path="res://.godot/imported/menu-mask.png-876ca89d0572b7d23569bb9d80a1a4c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/teamselection/finals-label.png"
-dest_files=["res://.godot/imported/finals-label.png-8eb3b280975e73b5080db24eb2a8dc98.ctex"]
+source_file="res://assets/sprites/ui/main_menu/menu-mask.png"
+dest_files=["res://.godot/imported/menu-mask.png-876ca89d0572b7d23569bb9d80a1a4c6.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxsaqbtt0robo"
-path="res://.godot/imported/ball-selection.png-1e8a030dfe0682c61b2994bb8ac4a8d2.ctex"
+uid="uid://dl8afkv0fvl5"
+path="res://.godot/imported/select-team-label.png-2451759ee933a0793834bc0b3da112cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/mainmenu/ball-selection.png"
-dest_files=["res://.godot/imported/ball-selection.png-1e8a030dfe0682c61b2994bb8ac4a8d2.ctex"]
+source_file="res://assets/sprites/ui/team_selection/select-team-label.png"
+dest_files=["res://.godot/imported/select-team-label.png-2451759ee933a0793834bc0b3da112cf.ctex"]
 
 [params]
 

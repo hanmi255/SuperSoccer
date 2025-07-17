@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl8afkv0fvl5"
-path="res://.godot/imported/select-team-label.png-9478e744a95e873624f1ce75d79d0196.ctex"
+uid="uid://p36y7nmgyvsq"
+path="res://.godot/imported/semis-label.png-629defa619d98edda91b647afd35740b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/teamselection/select-team-label.png"
-dest_files=["res://.godot/imported/select-team-label.png-9478e744a95e873624f1ce75d79d0196.ctex"]
+source_file="res://assets/sprites/ui/team_selection/semis-label.png"
+dest_files=["res://.godot/imported/semis-label.png-629defa619d98edda91b647afd35740b.ctex"]
 
 [params]
 

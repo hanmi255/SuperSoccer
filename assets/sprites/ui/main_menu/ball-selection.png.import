@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjk22gtpbmb61"
-path="res://.godot/imported/worldcup-label.png-6951addc63b07d7c0445cf67517a1399.ctex"
+uid="uid://cxsaqbtt0robo"
+path="res://.godot/imported/ball-selection.png-7bd69c26e31cd6bdf153e31af570898e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/teamselection/worldcup-label.png"
-dest_files=["res://.godot/imported/worldcup-label.png-6951addc63b07d7c0445cf67517a1399.ctex"]
+source_file="res://assets/sprites/ui/main_menu/ball-selection.png"
+dest_files=["res://.godot/imported/ball-selection.png-7bd69c26e31cd6bdf153e31af570898e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfcqxb6rqml3j"
-path="res://.godot/imported/layout-p2.png-877efe0b984f0b7d27df335a77e434df.ctex"
+uid="uid://cwrafty75c2mk"
+path="res://.godot/imported/tournament-screen.png-974de60d5dc1932713ddc9f226c60287.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/mainmenu/layout-p2.png"
-dest_files=["res://.godot/imported/layout-p2.png-877efe0b984f0b7d27df335a77e434df.ctex"]
+source_file="res://assets/sprites/ui/team_selection/tournament-screen.png"
+dest_files=["res://.godot/imported/tournament-screen.png-974de60d5dc1932713ddc9f226c60287.ctex"]
 
 [params]
 
