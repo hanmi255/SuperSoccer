@@ -2,6 +2,8 @@
 ## 负责从JSON文件加载球队和球员数据，并提供访问接口
 extends Node
 
+## 国家列表
+var _countries: Array[String] = ["FRANCE"]
 ## 存储所有球队数据的字典，键为国家名称，值为该国家的球员数组
 var _squads: Dictionary[String, Array]
 
@@ -26,6 +28,7 @@ func load_squads() -> void:
 	# 遍历JSON中的每个球队
 	for team in json.get_data():
 		var country_name := team["country"] as String
+		_countries.append(country_name)
 		var players := team["players"] as Array
 
 		if not _squads.has(country_name):
@@ -60,3 +63,10 @@ func get_squad(country_name: String) -> Array:
 		return []
 
 	return _squads[country_name]
+
+
+## 获取国家列表
+## 返回:
+##   国家列表
+func get_countries() -> Array[String]:
+	return _countries

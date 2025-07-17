@@ -12,7 +12,6 @@ const CONTROL_SCHEME_SPRITE_MAP := {
 	ControlScheme.P1: preload("res://assets/sprites/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/sprites/props/2p.png"),
 } # 控制方案精灵映射
-const COUNTRIES := ["FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA", "CANADA"] # 国家列表
 const GRAVITY := 8.0 # 重力加速度
 const BALL_CONTROL_HEIGHT_MAX := 10.0 # 控球高度最大值
 const WALK_ANIM_THRESHOLD := 0.6 # 行走动画阈值
@@ -187,7 +186,8 @@ func _set_sprite_visibility() -> void:
 
 
 func _set_shader_properties() -> void:
-	skin.material.set_shader_parameter("team_color", COUNTRIES.find(country))
+	var countries := DataLoader.get_countries()
+	skin.material.set_shader_parameter("team_color", countries.find(country))
 	skin.material.set_shader_parameter("skin_color", skin_color)
 
 
