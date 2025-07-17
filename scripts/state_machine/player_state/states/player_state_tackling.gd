@@ -10,6 +10,7 @@ var _time_finish_tackle: int = 0
 
 func _enter_tree() -> void:
 	animation_player.play("tackle")
+	AudioPlayer.play(AudioPlayer.Sound.TACKLING)
 	tackle_damage_emitter_area.set_deferred("monitoring", true)
 
 

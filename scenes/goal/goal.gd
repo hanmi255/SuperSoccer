@@ -42,4 +42,5 @@ func _on_back_net_area_body_entered(ball: Ball) -> void:
 
 
 func _on_scoring_area_body_entered(_ball: Ball) -> void:
+	AudioPlayer.play(AudioPlayer.Sound.WHISTLE)
 	EventBus.team_scored.emit(country)

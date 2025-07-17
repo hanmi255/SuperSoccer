@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 DataLoader="*res://scripts/auto_load/data_loader.gd"
 EventBus="*res://scripts/auto_load/event_bus.gd"
 GameManager="*res://scripts/auto_load/game_manager.gd"
+AudioPlayer="*res://scripts/auto_load/audio_player.gd"
 
 [display]
 
