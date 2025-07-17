@@ -1,0 +1,336 @@
+[gd_scene load_steps=15 format=3 uid="uid://suuugcjc20ci"]
+
+[ext_resource type="Texture2D" uid="uid://dbirwdmcpt3ne" path="res://assets/sprites/ui/mainmenu/menu-background.png" id="1_wem23"]
+[ext_resource type="Texture2D" uid="uid://ccqawetwt2kqp" path="res://assets/sprites/ui/mainmenu/title.png" id="2_3ovsr"]
+[ext_resource type="Texture2D" uid="uid://bx61av05otg5n" path="res://assets/sprites/ui/mainmenu/menu-mask.png" id="3_5seab"]
+[ext_resource type="Texture2D" uid="uid://dfcqxb6rqml3j" path="res://assets/sprites/ui/mainmenu/layout-p2.png" id="4_4xg86"]
+[ext_resource type="Texture2D" uid="uid://bq727krn3gku2" path="res://assets/sprites/ui/mainmenu/layout-p1.png" id="5_thkx5"]
+[ext_resource type="Texture2D" uid="uid://d2t14mhxh2tb2" path="res://assets/sprites/ui/mainmenu/1-player-selected.png" id="6_4xg86"]
+[ext_resource type="Texture2D" uid="uid://fx6s8j781fxi" path="res://assets/sprites/ui/mainmenu/2-players.png" id="7_thkx5"]
+[ext_resource type="Texture2D" uid="uid://cxsaqbtt0robo" path="res://assets/sprites/ui/mainmenu/ball-selection.png" id="8_x2yjq"]
+
+[sub_resource type="Animation" id="Animation_lqpn7"]
+resource_name = "start"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG/TitleTexture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(25, -70), Vector2(25, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BG/SinglePlayerTexture:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-150, 100), Vector2(35, 100)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BG/TwoPlayerTexture:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-150, 125), Vector2(35, 125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BG/Mask:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(155, 180), Vector2(155, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BG/Player1Controls:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BG/Player2Controls:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BG/SelectionIcon:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qel0l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG/TitleTexture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(25, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BG/SinglePlayerTexture:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35, 100)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BG/TwoPlayerTexture:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35, 125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BG/Mask:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(155, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BG/Player1Controls:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BG/Player2Controls:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BG/SelectionIcon:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rrgl4"]
+_data = {
+&"RESET": SubResource("Animation_qel0l"),
+&"start": SubResource("Animation_lqpn7")
+}
+
+[sub_resource type="Animation" id="Animation_dn3lk"]
+resource_name = "rotate"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG/SelectionIcon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.5708, 3.14159, 4.71239]
+}
+
+[sub_resource type="Animation" id="Animation_4ujhu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG/SelectionIcon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vnpsp"]
+_data = {
+&"RESET": SubResource("Animation_4ujhu"),
+&"rotate": SubResource("Animation_dn3lk")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_wem23")
+
+[node name="TitleTexture" type="TextureRect" parent="BG"]
+layout_mode = 1
+offset_left = 25.0
+offset_top = 20.0
+offset_right = 164.0
+offset_bottom = 85.0
+texture = ExtResource("2_3ovsr")
+
+[node name="Mask" type="TextureRect" parent="BG"]
+modulate = Color(0, 0, 0, 0.788235)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -125.0
+offset_bottom = 180.0
+grow_horizontal = 0
+texture = ExtResource("3_5seab")
+
+[node name="Player1Controls" type="TextureRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -100.0
+offset_right = -8.0
+offset_bottom = -67.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("5_thkx5")
+
+[node name="Player2Controls" type="TextureRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -50.0
+offset_right = -8.0
+offset_bottom = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_4xg86")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="SinglePlayerTexture" type="TextureRect" parent="BG"]
+layout_mode = 1
+offset_left = 35.0
+offset_top = 100.0
+offset_right = 177.0
+offset_bottom = 140.0
+texture = ExtResource("6_4xg86")
+stretch_mode = 2
+
+[node name="TwoPlayerTexture" type="TextureRect" parent="BG"]
+layout_mode = 1
+offset_left = 35.0
+offset_top = 125.0
+offset_right = 177.0
+offset_bottom = 146.0
+texture = ExtResource("7_thkx5")
+stretch_mode = 2
+
+[node name="SelectionIcon" type="TextureRect" parent="BG"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 30.0
+offset_bottom = 120.0
+pivot_offset = Vector2(10, 10)
+texture = ExtResource("8_x2yjq")
+stretch_mode = 2
+
+[node name="MenuAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rrgl4")
+}
+autoplay = "start"
+
+[node name="BallAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vnpsp")
+}
+autoplay = "rotate"
