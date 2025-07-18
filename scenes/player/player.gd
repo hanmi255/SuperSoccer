@@ -187,7 +187,9 @@ func _set_sprite_visibility() -> void:
 
 func _set_shader_properties() -> void:
 	var countries := DataLoader.get_countries()
-	skin.material.set_shader_parameter("team_color", countries.find(country))
+	var country_color := countries.find(country)
+	country_color = clampi(country_color, 0, countries.size() - 1)
+	skin.material.set_shader_parameter("team_color", country_color)
 	skin.material.set_shader_parameter("skin_color", skin_color)
 
 

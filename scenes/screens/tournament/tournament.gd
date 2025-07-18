@@ -70,9 +70,7 @@ func _refresh_bracket_state(stage: TournamentData.Stage) -> void:
 			var flag_loser := flag_home if flag_winner == flag_away else flag_away
 			flag_winner.set_as_winner(current_match.final_score)
 			flag_loser.set_as_loser()
-			continue
-
-		if [current_match.country_home, current_match.country_away].has(player_country):
+		elif [current_match.country_home, current_match.country_away].has(player_country) and stage == tournament_data.current_stage:
 			var flag_player := flag_home if current_match.country_home == player_country else flag_away
 			flag_player.set_as_current_team()
 			GameManager.current_match = current_match
