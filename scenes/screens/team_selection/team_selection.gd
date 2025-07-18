@@ -110,5 +110,5 @@ func _on_flag_selected() -> void:
 	var country_p2 := GameManager.player_setup[1]
 
 	if not country_p2.is_empty() and country_p1 != country_p2:
-		GameManager.countries = [country_p1, country_p2]
+		GameManager.current_match = Match.new(country_p1, country_p2)
 		transition_to_state(SoccerGame.ScreenType.IN_GAME)

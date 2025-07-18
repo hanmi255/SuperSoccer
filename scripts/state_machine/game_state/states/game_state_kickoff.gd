@@ -5,10 +5,10 @@ var valid_control_schemes := []
 
 
 func _enter_tree() -> void:
-	var country_starting := state_data.country_scored_for
+	var country_starting := state_data.country_scored_on
 	# 如果country_starting为空，则默认为第一个国家
 	if country_starting.is_empty():
-		country_starting = manager.countries[0]
+		country_starting = manager.get_home_team()
 	# 添加country_starting对应的控制模式
 	if country_starting == manager.player_setup[0]:
 		valid_control_schemes.append(Player.ControlScheme.P1)

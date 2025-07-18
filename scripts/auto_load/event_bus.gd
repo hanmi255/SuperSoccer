@@ -14,4 +14,4 @@ signal score_changed
 signal screen_state_transition_requested(new_state: SoccerGame.ScreenType, data: ScreenStateData)
 signal swap_soul_requested(requester: Player)
 signal team_reset
-signal team_scored(country_scored_for: String)
+signal team_scored(country_scored_on: String)

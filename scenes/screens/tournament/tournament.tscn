@@ -1,0 +1,225 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdrvy0pmhov8d"]
+
+[ext_resource type="Script" uid="uid://dewt8cvkp70y3" path="res://scenes/screens/tournament/tournament.gd" id="1_877gd"]
+[ext_resource type="Texture2D" uid="uid://cwrafty75c2mk" path="res://assets/sprites/ui/team_selection/tournament-screen.png" id="2_byq10"]
+[ext_resource type="PackedScene" uid="uid://bmikw7lmipoml" path="res://scenes/screens/tournament/bracket_flag/bracket_flag.tscn" id="3_1n5ju"]
+[ext_resource type="Texture2D" uid="uid://ht37woclw7wu" path="res://assets/sprites/ui/flags/flag-vseparator.png" id="4_v8qt1"]
+[ext_resource type="Texture2D" uid="uid://dgkj6c0rklbok" path="res://assets/sprites/ui/flags/flag-hseparator.png" id="5_qx315"]
+[ext_resource type="Texture2D" uid="uid://cjk22gtpbmb61" path="res://assets/sprites/ui/team_selection/worldcup-label.png" id="6_x5bus"]
+[ext_resource type="Texture2D" uid="uid://c3sjfwj0fdcb4" path="res://assets/sprites/ui/team_selection/quarters-label.png" id="7_wdvqu"]
+
+[node name="Tournament" type="Node"]
+script = ExtResource("1_877gd")
+
+[node name="BG" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_byq10")
+
+[node name="BracketsContainer" type="HBoxContainer" parent="BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="QuarterFinalLeftContainer" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BracketFlag" parent="BG/BracketsContainer/QuarterFinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BG/BracketsContainer/QuarterFinalLeftContainer"]
+layout_mode = 2
+texture = ExtResource("4_v8qt1")
+
+[node name="BracketFlag2" parent="BG/BracketsContainer/QuarterFinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VPadding" type="Control" parent="BG/BracketsContainer/QuarterFinalLeftContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="BracketFlag3" parent="BG/BracketsContainer/QuarterFinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VLink2" type="TextureRect" parent="BG/BracketsContainer/QuarterFinalLeftContainer"]
+layout_mode = 2
+texture = ExtResource("4_v8qt1")
+
+[node name="BracketFlag4" parent="BG/BracketsContainer/QuarterFinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="HPadding" type="Control" parent="BG/BracketsContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="SemiiFinalLeftContainer" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BracketFlag" parent="BG/BracketsContainer/SemiiFinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BG/BracketsContainer/SemiiFinalLeftContainer"]
+layout_mode = 2
+texture = ExtResource("4_v8qt1")
+
+[node name="BracketFlag2" parent="BG/BracketsContainer/SemiiFinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="HPadding2" type="Control" parent="BG/BracketsContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="FinalLeftContainer" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BracketFlag" parent="BG/BracketsContainer/FinalLeftContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="FinalLink" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BG/BracketsContainer/FinalLink"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+texture = ExtResource("5_qx315")
+
+[node name="FinalRightContainer" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BracketFlag" parent="BG/BracketsContainer/FinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="HPadding3" type="Control" parent="BG/BracketsContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="SemiFinalRightContainer" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BracketFlag" parent="BG/BracketsContainer/SemiFinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BG/BracketsContainer/SemiFinalRightContainer"]
+layout_mode = 2
+texture = ExtResource("4_v8qt1")
+
+[node name="BracketFlag2" parent="BG/BracketsContainer/SemiFinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="HPadding4" type="Control" parent="BG/BracketsContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="QuarterFinalRightContainer" type="VBoxContainer" parent="BG/BracketsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BracketFlag" parent="BG/BracketsContainer/QuarterFinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BG/BracketsContainer/QuarterFinalRightContainer"]
+layout_mode = 2
+texture = ExtResource("4_v8qt1")
+
+[node name="BracketFlag2" parent="BG/BracketsContainer/QuarterFinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VPadding" type="Control" parent="BG/BracketsContainer/QuarterFinalRightContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="BracketFlag3" parent="BG/BracketsContainer/QuarterFinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="VLink2" type="TextureRect" parent="BG/BracketsContainer/QuarterFinalRightContainer"]
+layout_mode = 2
+texture = ExtResource("4_v8qt1")
+
+[node name="BracketFlag4" parent="BG/BracketsContainer/QuarterFinalRightContainer" instance=ExtResource("3_1n5ju")]
+layout_mode = 2
+
+[node name="PressKeyLabel" type="Label" parent="BG"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.2, 0.705882, 1, 1)
+theme_override_constants/outline_size = 5
+text = "PRESS ANY KEY TO CONTINUE..."
+horizontal_alignment = 1
+
+[node name="WorldCupTexture" type="TextureRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 33.0
+grow_horizontal = 2
+texture = ExtResource("6_x5bus")
+
+[node name="StageTexture" type="TextureRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.0
+offset_top = 35.0
+offset_right = 69.0
+offset_bottom = 63.0
+grow_horizontal = 2
+texture = ExtResource("7_wdvqu")
+
+[node name="WinnerContainer" type="Control" parent="BG"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BracketFlag" parent="BG/WinnerContainer" instance=ExtResource("3_1n5ju")]
+custom_minimum_size = Vector2(66, 42)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.0
+offset_top = -57.0
+offset_right = 33.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0

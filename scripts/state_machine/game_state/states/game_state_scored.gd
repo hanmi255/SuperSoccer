@@ -7,7 +7,7 @@ var time_since_celebration := 0.0
 
 
 func _enter_tree() -> void:
-	manager.increase_score(state_data.country_scored_for)
+	manager.increase_score(state_data.country_scored_on)
 	time_since_celebration = Time.get_ticks_msec()
 
 

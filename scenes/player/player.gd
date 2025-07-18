@@ -69,7 +69,7 @@ func _ready() -> void:
 	EventBus.team_scored.connect(_on_team_scored.bind())
 	EventBus.game_over.connect(_on_game_over.bind())
 
-	var initial_pos := kickoff_position if country == GameManager.countries[0] else spawn_position
+	var initial_pos := kickoff_position if country == GameManager.get_home_team() else spawn_position
 	switch_state(Player.State.RESETTING, PlayerStateData.build().set_reset_position(initial_pos))
 
 
@@ -221,8 +221,8 @@ func _on_hurt_player(body: Node2D) -> void:
 		body._get_hurt(position.direction_to(body.position))
 
 
-func _on_team_scored(country_scored_for: String) -> void:
-	if country_scored_for == country:
+func _on_team_scored(country_scored_on: String) -> void:
+	if country_scored_on == country:
 		switch_state(Player.State.MOURNING)
 	else:
 		switch_state(Player.State.CELEBRATING)
