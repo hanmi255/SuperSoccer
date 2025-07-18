@@ -13,7 +13,7 @@ config_version=5
 config/name="SuperSoccer"
 run/main_scene="uid://ddn3mf5frk3to"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://bb0viw4t3v8sp"
 
 [autoload]
 
