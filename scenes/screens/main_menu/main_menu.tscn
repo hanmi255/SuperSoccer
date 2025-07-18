@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://suuugcjc20ci"]
 
-[ext_resource type="Script" uid="uid://fxduxvl4qylm" path="res://scenes/main_menu/main_menu.gd" id="1_thkx5"]
+[ext_resource type="Script" uid="uid://fxduxvl4qylm" path="res://scenes/screens/main_menu/main_menu.gd" id="1_thkx5"]
 [ext_resource type="Texture2D" uid="uid://dbirwdmcpt3ne" path="res://assets/sprites/ui/main_menu/menu-background.png" id="1_wem23"]
 [ext_resource type="Texture2D" uid="uid://ccqawetwt2kqp" path="res://assets/sprites/ui/main_menu/title.png" id="2_3ovsr"]
 [ext_resource type="Texture2D" uid="uid://bx61av05otg5n" path="res://assets/sprites/ui/main_menu/menu-mask.png" id="3_5seab"]
@@ -245,17 +245,10 @@ _data = {
 &"rotate": SubResource("Animation_dn3lk")
 }
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainMenu" type="Node"]
 script = ExtResource("1_thkx5")
 
 [node name="BG" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_wem23")

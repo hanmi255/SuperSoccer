@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SuperSoccer"
-run/main_scene="uid://yl0k3oh1qpr4"
+run/main_scene="uid://ddn3mf5frk3to"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

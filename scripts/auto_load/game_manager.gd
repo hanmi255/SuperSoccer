@@ -22,7 +22,6 @@ func _ready() -> void:
 	time_left = GAME_DURATION
 	EventBus.game_state_transition_requested.connect(switch_state.bind())
 	EventBus.impact_received.connect(_on_impact_received.bind())
-	switch_state(State.RESET)
 
 
 func _process(_delta: float) -> void:
@@ -39,6 +38,10 @@ func switch_state(state: State, state_data: GameStateData = GameStateData.new())
 	current_state.name = "GameStateMachine: " + str(state)
 
 	call_deferred("add_child", current_state)
+
+
+func start_game() -> void:
+	switch_state(State.RESET)
 
 
 func increase_score(country_scored_for: String) -> void:

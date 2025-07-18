@@ -1,5 +1,5 @@
 class_name MainMenu
-extends Control
+extends ScreenStateBase
 
 const MENU_TEXTURES := [
 	[preload("res://assets/sprites/ui/main_menu/1-player.png"), preload("res://assets/sprites/ui/main_menu/1-player-selected.png")],
@@ -49,6 +49,7 @@ func _submit_selection() -> void:
 	var country_default := DataLoader.get_countries()[1]
 	var player_two := "" if current_selection == 0 else country_default
 	GameManager.player_setup = [country_default, player_two]
+	transition_to_state(SoccerGame.ScreenType.TEAM_SELECTION)
 
 
 func _on_set_active() -> void:

@@ -2,19 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://br7sdvxtt1k8u" path="res://assets/sprites/ui/team_selection/team-selection-background.png" id="1_3tga5"]
 [ext_resource type="Texture2D" uid="uid://dl8afkv0fvl5" path="res://assets/sprites/ui/team_selection/select-team-label.png" id="2_gqce0"]
-[ext_resource type="Script" uid="uid://dure42jr00xiq" path="res://scenes/team_selection/team_selection.gd" id="3_gqce0"]
+[ext_resource type="Script" uid="uid://dure42jr00xiq" path="res://scenes/screens/team_selection/team_selection.gd" id="3_gqce0"]
 
-[node name="TeamSelection" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TeamSelection" type="Node"]
 script = ExtResource("3_gqce0")
 
 [node name="BG" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_3tga5")

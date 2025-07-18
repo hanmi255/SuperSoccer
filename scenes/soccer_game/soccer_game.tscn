@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddn3mf5frk3to"]
+
+[ext_resource type="Script" uid="uid://q2bj0ytwfmnq" path="res://scenes/soccer_game/soccer_game.gd" id="1_w3jgy"]
+
+[node name="SoccerGame" type="Node"]
+script = ExtResource("1_w3jgy")
