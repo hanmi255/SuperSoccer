@@ -13,8 +13,22 @@ var winner := ""
 
 func _init() -> void:
 	var all_countries := DataLoader.get_countries()
+	var selected_countries: Array[String] = []
+
+	# 确保玩家选择的国家包含在锦标赛中
+	var player_country := GameManager.player_setup[0]
+	if not player_country.is_empty():
+		selected_countries.append(player_country)
+		# 从所有国家中移除玩家选择的国家，避免重复
+		all_countries.erase(player_country)
+
+	# 随机选择剩余的7个国家
 	all_countries.shuffle()
-	var selected_countries := all_countries.slice(0, 8)
+	var remaining_countries := all_countries.slice(0, 7)
+	selected_countries.append_array(remaining_countries)
+
+	# 打乱最终的8个国家顺序
+	selected_countries.shuffle()
 	_create_bracket(Stage.QUARTER_FINALS, selected_countries)
 
 

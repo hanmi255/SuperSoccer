@@ -85,7 +85,7 @@ func _try_navigate(selector_index: int, direction: Vector2i) -> void:
 	if rect.has_point(new_position):
 		selection[selector_index] = new_position
 		var flag_index := selection[selector_index].x + selection[selector_index].y * NUM_COLS
-		GameManager.player_setup[selector_index] = DataLoader.get_countries()[1 + flag_index]
+		GameManager.player_setup[selector_index] = DataLoader.get_countries()[flag_index]
 		selectors[selector_index].position = flags_container.get_child(flag_index).position
 		SoundPlayer.play(SoundPlayer.Sound.UI_NAV)
 		return
