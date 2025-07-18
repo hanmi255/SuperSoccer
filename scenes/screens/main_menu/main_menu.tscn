@@ -247,6 +247,7 @@ _data = {
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_thkx5")
+music = 2
 
 [node name="BG" type="TextureRect" parent="."]
 offset_right = 40.0

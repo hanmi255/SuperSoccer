@@ -23,5 +23,5 @@ func _process(_delta: float) -> void:
 	for control_scheme: Player.ControlScheme in valid_control_schemes:
 		if KeyUtils.is_action_just_pressed(control_scheme, KeyUtils.Action.PASS):
 			EventBus.kickoff_started.emit()
-			AudioPlayer.play(AudioPlayer.Sound.WHISTLE)
+			SoundPlayer.play(SoundPlayer.Sound.WHISTLE)
 			transition_state(GameManager.State.IN_PLAY)

@@ -5,13 +5,13 @@ extends PlayerStateBase
 func _enter_tree() -> void:
 	animation_player.play("kick")
 	player.velocity = Vector2.ZERO
-	AudioPlayer.play(AudioPlayer.Sound.PASS)
+	SoundPlayer.play(SoundPlayer.Sound.PASS)
 
 
 func find_teammate_in_view() -> Player:
 	var players_in_view := teammate_detection_area.get_overlapping_bodies()
 	var teammates_in_view := players_in_view.filter(
-		func(p: Player): return p != player
+		func(p: Player): return p != player and p.country == player.country
 	)
 	teammates_in_view.sort_custom(
 		func(a: Player, b: Player): return a.position.distance_squared_to(player.position) < b.position.distance_squared_to(player.position)

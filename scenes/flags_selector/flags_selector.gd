@@ -18,7 +18,7 @@ func _process(_delta) -> void:
 	if not is_selected and KeyUtils.is_action_just_pressed(control_scheme, KeyUtils.Action.SHOOT):
 		is_selected = true
 		animation_player.play("selected")
-		AudioPlayer.play(AudioPlayer.Sound.UI_SELECT)
+		SoundPlayer.play(SoundPlayer.Sound.UI_SELECT)
 		EventBus.flag_selected.emit()
 	elif is_selected and KeyUtils.is_action_just_released(control_scheme, KeyUtils.Action.PASS):
 		is_selected = false

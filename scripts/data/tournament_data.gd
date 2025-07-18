@@ -13,7 +13,7 @@ var winner := ""
 
 func _init() -> void:
 	var all_countries := DataLoader.get_countries()
-	all_countries.shuffle() # 每次启动随机打乱
+	all_countries.shuffle()
 	var selected_countries := all_countries.slice(0, 8)
 	_create_bracket(Stage.QUARTER_FINALS, selected_countries)
 

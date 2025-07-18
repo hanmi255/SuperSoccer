@@ -40,12 +40,12 @@ func _refresh_ui() -> void:
 
 func _change_selection(new_selection: int) -> void:
 	current_selection = clamp(new_selection, 0, selectable_textures.size() - 1)
-	AudioPlayer.play(AudioPlayer.Sound.UI_NAV)
+	SoundPlayer.play(SoundPlayer.Sound.UI_NAV)
 	_refresh_ui()
 
 
 func _submit_selection() -> void:
-	AudioPlayer.play(AudioPlayer.Sound.UI_SELECT)
+	SoundPlayer.play(SoundPlayer.Sound.UI_SELECT)
 	var country_default := DataLoader.get_countries()[1]
 	var player_two := "" if current_selection == 0 else country_default
 	GameManager.player_setup = [country_default, player_two]

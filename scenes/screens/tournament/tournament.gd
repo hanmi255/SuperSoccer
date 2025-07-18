@@ -21,14 +21,25 @@ var tournament_data: TournamentData = null
 
 
 func _ready() -> void:
-	tournament_data = TournamentData.new()
+	tournament_data = screen_data.tournament_data
+
+	if tournament_data.current_stage == TournamentData.Stage.COMPLETE:
+		MusicPlayer.play_music(MusicPlayer.Music.WIN)
+
 	_refresh_brackets()
 
 
 func _process(_delta: float) -> void:
-	if KeyUtils.is_action_just_pressed(Player.ControlScheme.P1, KeyUtils.Action.SHOOT):
-		tournament_data.advance()
-		_refresh_brackets()
+	if not KeyUtils.is_action_just_pressed(Player.ControlScheme.P1, KeyUtils.Action.SHOOT):
+		return
+
+	SoundPlayer.play(SoundPlayer.Sound.UI_SELECT)
+
+	if tournament_data.current_stage < TournamentData.Stage.COMPLETE:
+		transition_to_state(SoccerGame.ScreenType.IN_GAME, screen_data)
+		return
+
+	transition_to_state(SoccerGame.ScreenType.MAIN_MENU)
 
 
 func _refresh_brackets() -> void:
@@ -40,30 +51,31 @@ func _refresh_bracket_state(stage: TournamentData.Stage) -> void:
 	var flag_nodes := _get_flag_nodes_from_stage(stage)
 	stage_texture.texture = STAGE_TEXTURES.get(stage)
 
-	if stage < TournamentData.Stage.COMPLETE:
-		var matches: Array = tournament_data.matches[stage]
-
-		assert(flag_nodes.size() == 2 * matches.size())
-
-		for i in range(matches.size()):
-			var current_match: Match = matches[i]
-			var flag_home: BracketFlag = flag_nodes[i * 2]
-			var flag_away: BracketFlag = flag_nodes[i * 2 + 1]
-			_set_flag_texture(flag_home, current_match.country_home)
-			_set_flag_texture(flag_away, current_match.country_away)
-
-			if not current_match.winner.is_empty():
-				var flag_winner := flag_home if current_match.winner == current_match.country_home else flag_away
-				var flag_loser := flag_home if flag_winner == flag_away else flag_away
-				flag_winner.set_as_winner(current_match.final_score)
-				flag_loser.set_as_loser()
-
-			elif [current_match.country_home, current_match.country_away].has(player_country):
-				var flag_player := flag_home if current_match.country_home == player_country else flag_away
-				flag_player.set_as_current_team()
-				GameManager.current_match = current_match
-	else:
+	if stage >= TournamentData.Stage.COMPLETE:
 		_set_flag_texture(flag_nodes[0], tournament_data.winner)
+		return
+
+	var matches: Array = tournament_data.matches[stage]
+	assert(flag_nodes.size() == 2 * matches.size())
+
+	for i in range(matches.size()):
+		var current_match: Match = matches[i]
+		var flag_home: BracketFlag = flag_nodes[i * 2]
+		var flag_away: BracketFlag = flag_nodes[i * 2 + 1]
+		_set_flag_texture(flag_home, current_match.country_home)
+		_set_flag_texture(flag_away, current_match.country_away)
+
+		if not current_match.winner.is_empty():
+			var flag_winner := flag_home if current_match.winner == current_match.country_home else flag_away
+			var flag_loser := flag_home if flag_winner == flag_away else flag_away
+			flag_winner.set_as_winner(current_match.final_score)
+			flag_loser.set_as_loser()
+			continue
+
+		if [current_match.country_home, current_match.country_away].has(player_country):
+			var flag_player := flag_home if current_match.country_home == player_country else flag_away
+			flag_player.set_as_current_team()
+			GameManager.current_match = current_match
 
 
 func _get_flag_nodes_from_stage(stage: TournamentData.Stage) -> Array[BracketFlag]:

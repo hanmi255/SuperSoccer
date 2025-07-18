@@ -10,6 +10,7 @@
 
 [node name="Tournament" type="Node"]
 script = ExtResource("1_877gd")
+music = 3
 
 [node name="BG" type="TextureRect" parent="."]
 offset_right = 40.0

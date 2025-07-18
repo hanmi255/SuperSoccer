@@ -15,7 +15,7 @@ func _on_ball_entered(contact_ball: Ball) -> void:
 	if contact_ball.can_air_connect(BALL_HEIGHT_MIN, BALL_HEIGHT_MAX):
 		var destination := target_goal.get_random_target_position()
 		var direction := ball.position.direction_to(destination)
-		AudioPlayer.play(AudioPlayer.Sound.POWER_SHOOT)
+		SoundPlayer.play(SoundPlayer.Sound.POWER_SHOOT)
 		contact_ball.shoot(direction * player.power * BONUS_FACTOR)
 
 

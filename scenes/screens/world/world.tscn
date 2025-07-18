@@ -9,6 +9,7 @@
 
 [node name="World" type="Node"]
 script = ExtResource("1_j30nm")
+music = 1
 
 [node name="BG" type="Node2D" parent="."]
 
@@ -30,3 +31,7 @@ centered = false
 [node name="ActorsContainer" parent="." instance=ExtResource("5_v5dby")]
 
 [node name="UI" parent="." instance=ExtResource("5_t5ptc")]
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 	if not KeyUtils.is_action_just_pressed(Player.ControlScheme.P1, KeyUtils.Action.PASS):
 		return
 
-	AudioPlayer.play(AudioPlayer.Sound.UI_NAV)
+	SoundPlayer.play(SoundPlayer.Sound.UI_NAV)
 	transition_to_state(SoccerGame.ScreenType.MAIN_MENU)
 
 
@@ -50,7 +50,7 @@ func _place_flags() -> void:
 		for i in range(NUM_COLS):
 			var flag_texture := TextureRect.new()
 			flag_texture.position = FLAG_ANCHOR_POINT + Vector2(55 * i, 40 * j)
-			var country_index := 1 + i + j * NUM_COLS
+			var country_index := i + j * NUM_COLS
 			var country := DataLoader.get_countries()[country_index]
 			flag_texture.texture = FlagHelper.get_flag_texture(country)
 			flag_texture.scale = Vector2(1.5, 1.5)
@@ -87,7 +87,7 @@ func _try_navigate(selector_index: int, direction: Vector2i) -> void:
 		var flag_index := selection[selector_index].x + selection[selector_index].y * NUM_COLS
 		GameManager.player_setup[selector_index] = DataLoader.get_countries()[1 + flag_index]
 		selectors[selector_index].position = flags_container.get_child(flag_index).position
-		AudioPlayer.play(AudioPlayer.Sound.UI_NAV)
+		SoundPlayer.play(SoundPlayer.Sound.UI_NAV)
 		return
 
 	# 只处理垂直方向的边界循环
@@ -112,3 +112,5 @@ func _on_flag_selected() -> void:
 	if not country_p2.is_empty() and country_p1 != country_p2:
 		GameManager.current_match = Match.new(country_p1, country_p2)
 		transition_to_state(SoccerGame.ScreenType.IN_GAME)
+	else:
+		transition_to_state(SoccerGame.ScreenType.TOURNAMENT, ScreenStateData.build().set_tournament(TournamentData.new()))

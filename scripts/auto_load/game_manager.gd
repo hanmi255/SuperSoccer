@@ -18,7 +18,6 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	time_left = GAME_DURATION
 	EventBus.game_state_transition_requested.connect(switch_state.bind())
 	EventBus.impact_received.connect(_on_impact_received.bind())
 
@@ -40,6 +39,7 @@ func switch_state(state: State, state_data: GameStateData = GameStateData.new())
 
 
 func start_game() -> void:
+	time_left = GAME_DURATION
 	switch_state(State.RESET)
 
 
