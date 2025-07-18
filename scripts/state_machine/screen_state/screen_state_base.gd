@@ -1,6 +1,9 @@
 class_name ScreenStateBase
 extends Node
 
+# 此处的State特指屏幕场景
+# 见 scenes/screens
+
 var game: SoccerGame = null
 var screen_data: ScreenStateData = null
 

@@ -3,7 +3,7 @@
 extends Node
 
 ## 国家列表
-var _countries: Array[String] = ["FRANCE"]
+var _countries: Array[String] = []
 ## 存储所有球队数据的字典，键为国家名称，值为该国家的球员数组
 var _squads: Dictionary[String, Array]
 
