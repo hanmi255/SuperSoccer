@@ -7,7 +7,7 @@ const MUSIC_MAP: Dictionary[Music, AudioStream] = {
 	Music.MENU: preload("res://assets/audio/music/menu.mp3"),
 	Music.TOURNAMENT: preload("res://assets/audio/music/tournament.mp3"),
 	Music.WIN: preload("res://assets/audio/music/win.mp3"),
-}
+} # 音乐映射表
 
 var current_music := Music.NONE
 

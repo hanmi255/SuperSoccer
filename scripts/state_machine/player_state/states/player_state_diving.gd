@@ -1,7 +1,7 @@
 class_name PlayerStateDiving
 extends PlayerStateBase
 
-const DIVE_DURATION := 500
+const DIVE_DURATION := 500 # 扑球持续时间
 
 var time_start_dive := 0.0
 

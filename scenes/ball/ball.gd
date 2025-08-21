@@ -103,10 +103,10 @@ func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
 	return scoring_ray_cast.get_collider() == scoring_area
 
 
-func get_proximity_teammates_count(country:String)-> int:
-	var players:=player_proximity_area.get_overlapping_bodies()
+func get_proximity_teammates_count(country: String) -> int:
+	var players := player_proximity_area.get_overlapping_bodies()
 	return players.filter(
-		func(p:Player) :
+		func(p: Player):
 			return p.country == country
 	).size()
 

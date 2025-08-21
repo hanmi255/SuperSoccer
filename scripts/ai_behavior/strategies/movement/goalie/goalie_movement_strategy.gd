@@ -1,7 +1,7 @@
 class_name GoalieMovementStrategy
 extends MovementStrategyBase
 
-const PROXIMITY := 5.0
+const PROXIMITY := 5.0 # 最大距离限制系数
 
 
 func get_steering_force() -> Vector2:

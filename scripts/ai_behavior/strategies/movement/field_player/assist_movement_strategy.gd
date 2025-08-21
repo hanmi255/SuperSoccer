@@ -1,7 +1,7 @@
 class_name AssistMovementStrategy
 extends MovementStrategyBase
 
-const SPREAD_ASSIST_FACTOR := 0.8
+const SPREAD_ASSIST_FACTOR := 0.8 # 传球助攻因子
 
 
 func get_steering_force() -> Vector2:

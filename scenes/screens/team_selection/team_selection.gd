@@ -1,10 +1,10 @@
 class_name TeamSelection
 extends ScreenStateBase
 
-const FLAG_ANCHOR_POINT := Vector2(65, 70)
-const FLAG_SELECTOR := preload("res://scenes/flags_selector/flags_selector.tscn")
-const NUM_COLS := 3
-const NUM_ROWS := 3
+const FLAG_ANCHOR_POINT := Vector2(65, 70) # 旗帜容器锚点
+const FLAG_SELECTOR := preload("res://scenes/flags_selector/flags_selector.tscn") # 旗帜选择器
+const NUM_COLS := 3 # 旗帜列数
+const NUM_ROWS := 3 # 旗帜行数
 
 @onready var flags_container: Control = %FlagsContainer
 

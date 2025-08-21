@@ -1,8 +1,8 @@
 class_name PlayerStateCelebrating
 extends PlayerStateBase
 
-const AIR_FRICTION := 60.0
-const CELEBRATE_V_VELOCITY := 2.0
+const AIR_FRICTION := 60.0 # 空中摩擦力
+const CELEBRATE_V_VELOCITY := 2.0 # 庆祝时垂直速度
 
 var initial_delay := randi_range(200, 500)
 var time_since_celebrating := 0.0

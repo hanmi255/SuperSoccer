@@ -2,7 +2,7 @@ extends Node
 
 enum Sound {BOUNCE, HURT, PASS, POWER_SHOOT, SHOOT, TACKLING, UI_NAV, UI_SELECT, WHISTLE}
 
-const NUM_CHANNELS := 4
+const NUM_CHANNELS := 4 # 音效通道数
 const SFX_MAP: Dictionary[Sound, AudioStream] = {
 	Sound.BOUNCE: preload("res://assets/audio/sfx/bounce.wav"),
 	Sound.HURT: preload("res://assets/audio/sfx/hurt.wav"),
@@ -13,7 +13,7 @@ const SFX_MAP: Dictionary[Sound, AudioStream] = {
 	Sound.UI_NAV: preload("res://assets/audio/sfx/ui-navigate.wav"),
 	Sound.UI_SELECT: preload("res://assets/audio/sfx/ui-select.wav"),
 	Sound.WHISTLE: preload("res://assets/audio/sfx/whistle.wav")
-}
+} # 音效映射表
 
 var stream_players: Array[AudioStreamPlayer] = []
 

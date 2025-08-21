@@ -4,7 +4,7 @@ extends ScreenStateBase
 const MENU_TEXTURES := [
 	[preload("res://assets/sprites/ui/main_menu/1-player.png"), preload("res://assets/sprites/ui/main_menu/1-player-selected.png")],
 	[preload("res://assets/sprites/ui/main_menu/2-players.png"), preload("res://assets/sprites/ui/main_menu/2-players-selected.png")]
-]
+] # 主菜单纹理
 
 @onready var selectable_textures: Array[TextureRect] = [%SinglePlayerTexture, %TwoPlayerTexture]
 @onready var selection_icon: TextureRect = %SelectionIcon

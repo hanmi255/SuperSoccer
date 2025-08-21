@@ -6,7 +6,7 @@ const STAGE_TEXTURES := {
 	TournamentData.Stage.SEMI_FINALS: preload("res://assets/sprites/ui/team_selection/semis-label.png"),
 	TournamentData.Stage.FINAL: preload("res://assets/sprites/ui/team_selection/finals-label.png"),
 	TournamentData.Stage.COMPLETE: preload("res://assets/sprites/ui/team_selection/winner-label.png"),
-}
+} # 比赛阶段纹理
 
 @onready var flag_containers: Dictionary = {
 	TournamentData.Stage.QUARTER_FINALS: [%QuarterFinalLeftContainer, %QuarterFinalRightContainer],

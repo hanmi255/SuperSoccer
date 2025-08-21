@@ -16,7 +16,7 @@ const ACTIONS_MAP: Dictionary = {
 		Action.SHOOT: "p1_shoot",
 		Action.PASS: "p1_pass",
 		Action.SWAP_SOUL: "p1_swap_soul",
-	},
+	}, # P1控制方案
 	Player.ControlScheme.P2: {
 		Action.LEFT: "p2_left",
 		Action.RIGHT: "p2_right",
@@ -25,8 +25,8 @@ const ACTIONS_MAP: Dictionary = {
 		Action.SHOOT: "p2_shoot",
 		Action.PASS: "p2_pass",
 		Action.SWAP_SOUL: "p2_swap_soul",
-	},
-}
+	}, # P2控制方案
+} # 控制方案映射字典
 
 
 ## 获取指定控制方案的方向输入向量

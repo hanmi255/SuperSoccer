@@ -1,7 +1,7 @@
 class_name BallStateFreeform
 extends BallStateBase
 
-const MAX_CONTROL_HEIGHT := 25.0
+const MAX_CONTROL_HEIGHT := 25.0 # 最大控球高度
 
 var time_since_freeform := 0.0
 

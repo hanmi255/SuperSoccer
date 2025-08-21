@@ -1,11 +1,11 @@
 class_name PlayerStateHurt
 extends PlayerStateBase
 
-const AIR_FRICTION := 35.0
-const BALL_TUMBLE_SPEED := 100.0
-const HURT_HEIGHT := 0.01
-const HURT_DURATION := 1000
-const HURT_V_VELOCITY := 2.0
+const AIR_FRICTION := 35.0 # 空中摩擦力
+const BALL_TUMBLE_SPEED := 100.0 # 球滚动速度
+const HURT_HEIGHT := 0.01 # 受伤时球员高度
+const HURT_DURATION := 1000 # 受伤持续时间
+const HURT_V_VELOCITY := 2.0 # 受伤时垂直速度
 
 var time_start_hurt := 0.0
 

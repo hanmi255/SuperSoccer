@@ -1,7 +1,7 @@
 extends Node
 
-const IMPACT_PAUSE_DURATION := 100
-const GAME_DURATION := 2 * 60
+const IMPACT_PAUSE_DURATION := 100 # 冲击暂停时间
+const GAME_DURATION := 2 * 60 # 游戏时长
 
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAME_OVER}
 

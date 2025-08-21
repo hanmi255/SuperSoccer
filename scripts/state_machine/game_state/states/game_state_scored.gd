@@ -1,7 +1,7 @@
 class_name GameStateScored
 extends GameStateBase
 
-const CELEBRATION_DURATION := 3000
+const CELEBRATION_DURATION := 3000 # 庆祝持续时间
 
 var time_since_celebration := 0.0
 
